@@ -43,8 +43,11 @@ export default function RootLayout({
                   <Link className="hud-nav__link" href="/proof">
                     Proof
                   </Link>
-                  <Link className="hud-nav__link" href="/contact">
-                    Contact
+                  <Link className="hud-nav__link" href="/contact?mode=audit">
+                    Free Audit
+                  </Link>
+                  <Link className="hud-nav__link" href="/contact?mode=call">
+                    Book a Call
                   </Link>
                 </nav>
               </div>
