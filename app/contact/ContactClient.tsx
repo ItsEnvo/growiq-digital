@@ -40,9 +40,9 @@ export default function ContactClient() {
       if (!j?.ok) throw new Error(j?.error || "failed");
       setStatus("sent");
       (e.target as HTMLFormElement).reset();
-    } catch (e: any) {
+    } catch (e: unknown) {
       setStatus("error");
-      setErr(e?.message || "failed");
+      setErr(e instanceof Error ? e.message : "failed");
     }
   }
 

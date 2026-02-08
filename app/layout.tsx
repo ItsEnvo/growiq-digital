@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import StickyCta from "./components/StickyCta";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,14 +30,20 @@ export default function RootLayout({
         <div className="min-h-screen">
           <div className="mx-auto max-w-6xl px-6 pt-8">
             <div className="hud-topbar">
-              <div className="flex items-center justify-between gap-4">
-                <Link href="/" className="hud-brand">
-                  <span className="hud-brand__word">GrowIQ</span>
-                  <span className="hud-brand__mark" aria-hidden />
-                  <span className="hud-brand__sub">DIGITAL</span>
-                </Link>
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div className="flex items-center justify-between gap-4">
+                  <Link href="/" className="hud-brand">
+                    <span className="hud-brand__word">GrowIQ</span>
+                    <span className="hud-brand__mark" aria-hidden />
+                    <span className="hud-brand__sub">DIGITAL</span>
+                  </Link>
 
-                <nav className="hud-nav">
+                  <Link className="hud-btn md:hidden" href="/services">
+                    Services
+                  </Link>
+                </div>
+
+                <nav className="hud-nav hidden md:flex">
                   <Link className="hud-nav__link" href="/services">
                     Services
                   </Link>
@@ -45,6 +52,9 @@ export default function RootLayout({
                   </Link>
                   <Link className="hud-nav__link" href="/proof">
                     Proof
+                  </Link>
+                  <Link className="hud-nav__link" href="/docs">
+                    Docs
                   </Link>
                   <Link className="hud-nav__link" href="/contact?mode=audit">
                     Free Audit
@@ -57,7 +67,9 @@ export default function RootLayout({
             </div>
           </div>
 
-          {children}
+          <div className="pb-24 md:pb-0">{children}</div>
+
+          <StickyCta />
 
           <div className="mx-auto max-w-6xl px-6 pb-10">
             <div className="mt-10 hud-footer">

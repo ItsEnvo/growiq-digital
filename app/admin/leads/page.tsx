@@ -1,4 +1,6 @@
 import Link from "next/link";
+import type { Lead } from "@/lib/leads";
+import { isLead } from "@/lib/leads";
 
 export const dynamic = "force-dynamic";
 
@@ -8,9 +10,17 @@ async function getLeads() {
   return res.json();
 }
 
+function asExternalUrl(v: unknown) {
+  const s = String(v ?? "").trim();
+  if (!s) return "";
+  if (/^https?:\/\//i.test(s)) return s;
+  return `https://${s}`;
+}
+
 export default async function LeadsAdminPage() {
-  const data = await getLeads();
-  const leads = data?.leads || [];
+  const data: unknown = await getLeads();
+  const d = data && typeof data === "object" ? (data as Record<string, unknown>) : {};
+  const leads: Lead[] = Array.isArray(d.leads) ? d.leads.filter(isLead) : [];
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-10">
@@ -36,15 +46,24 @@ export default async function LeadsAdminPage() {
       </section>
 
       <section className="mt-6 grid grid-cols-1 gap-4">
-        {leads.slice(0, 50).map((l: any) => (
+        {leads.slice(0, 50).map((l) => (
           <div key={l.id} className="hud-card p-6">
             <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
               <div>
                 <div className="text-lg font-semibold">{l.name}</div>
-                <div className="mt-1 text-sm text-zinc-200/80">
-                  {l.email}{l.website ? ` • ${l.website}` : ""}
+                <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-zinc-200/80">
+                  <a className="hover:underline" href={`mailto:${l.email}`}>{l.email}</a>
+                  {l.website ? (
+                    <a className="hover:underline" href={asExternalUrl(l.website)} target="_blank" rel="noreferrer">
+                      {l.website}
+                    </a>
+                  ) : null}
                 </div>
-                <div className="mt-1 text-xs tracking-widest text-zinc-400">{String(l.kind || "audit").toUpperCase()}</div>
+                <div className="mt-2 inline-flex items-center gap-2">
+                  <span className="hud-chip">
+                    <span className="hud-dot" /> {String(l.kind || "audit").toUpperCase()}
+                  </span>
+                </div>
               </div>
               <div className="text-xs tracking-widest text-zinc-400">
                 {typeof l.createdAtMs === "number" ? new Date(l.createdAtMs).toLocaleString() : ""}
