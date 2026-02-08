@@ -26,12 +26,19 @@ html {
 
 body {
   min-height: 100%;
-  background:
+  /* Replit preview can be aggressive with iframe defaults; force background hard. */
+  background-color: rgb(var(--bg)) !important;
+  background-image:
     radial-gradient(1200px 700px at 15% -10%, rgba(var(--petrol), 0.55), transparent 58%),
     radial-gradient(900px 550px at 90% 0%, rgba(var(--mint), 0.10), transparent 55%),
-    radial-gradient(900px 700px at 50% 110%, rgba(var(--petrol), 0.28), transparent 55%),
-    rgb(var(--bg)) !important;
+    radial-gradient(900px 700px at 50% 110%, rgba(var(--petrol), 0.28), transparent 55%) !important;
   color: rgb(var(--text));
+}
+
+/* Absolute fallback: if anything overrides gradients, at least stay dark. */
+#__next,
+main {
+  background: transparent;
 }
 
 /* Subtle grid + scanlines */
