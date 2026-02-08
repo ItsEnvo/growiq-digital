@@ -1,65 +1,129 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen">
+      <div className="mx-auto max-w-6xl px-6 py-10">
+        <header className="hud-card p-6">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <div className="hud-kicker">Grow IQ Digital</div>
+              <h1 className="mt-3 hud-title">AI-Native Growth Systems</h1>
+              <p className="mt-4 max-w-2xl text-zinc-200/90">
+                We build futuristic marketing ops: offer → funnel → automation → outreach — designed for speed, clarity, and
+                conversion.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <span className="hud-chip">
+                  <span className="hud-dot" /> Funnels + GHL
+                </span>
+                <span className="hud-chip">
+                  <span className="hud-dot" /> Outreach Automation
+                </span>
+                <span className="hud-chip">
+                  <span className="hud-dot" /> AI Systems
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <a className="hud-btn hud-btn--primary" href="#contact">
+                Get a Free Audit
+              </a>
+              <a className="hud-btn" href="#services">
+                View Services
+              </a>
+            </div>
+          </div>
+        </header>
+
+        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="hud-card p-5">
+            <div className="hud-kicker">Outcome</div>
+            <div className="mt-3 text-xl font-semibold">More booked calls</div>
+            <div className="mt-2 text-sm text-zinc-300/80">Tight qualification + follow-up that doesn’t leak leads.</div>
+          </div>
+          <div className="hud-card p-5">
+            <div className="hud-kicker">System</div>
+            <div className="mt-3 text-xl font-semibold">One pipeline</div>
+            <div className="mt-2 text-sm text-zinc-300/80">Everything tracked. Automations run the boring parts.</div>
+          </div>
+          <div className="hud-card p-5">
+            <div className="hud-kicker">Speed</div>
+            <div className="mt-3 text-xl font-semibold">Ship weekly</div>
+            <div className="mt-2 text-sm text-zinc-300/80">Small milestones that compound into a real machine.</div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        <section id="services" className="mt-10">
+          <div className="hud-kicker">Services</div>
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            {[
+              {
+                t: "Offer + Funnel Build",
+                d: "Landing pages, forms, routing, and conversion-first UX.",
+              },
+              {
+                t: "GHL Automations",
+                d: "Pipelines, reminders, confirmations, no-show recovery, reactivation.",
+              },
+              {
+                t: "Outbound Engine",
+                d: "Lead lists → sequences → tracking → follow-up → booked calls.",
+              },
+              {
+                t: "AI Ops Layer",
+                d: "Assistants, scripts, internal tools, and dashboards (mission control style).",
+              },
+            ].map((x) => (
+              <div key={x.t} className="hud-card p-5">
+                <div className="text-lg font-semibold">{x.t}</div>
+                <div className="mt-2 text-sm text-zinc-300/80">{x.d}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" className="mt-10">
+          <div className="hud-kicker">Contact</div>
+          <div className="mt-4 hud-card p-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div>
+                <div className="text-lg font-semibold">Free Audit Intake</div>
+                <div className="mt-2 text-sm text-zinc-300/80">
+                  Drop your info and what you’re trying to build. We’ll reply with a clear next step.
+                </div>
+                <div className="mt-4 text-sm text-zinc-300/80">
+                  (Form wiring comes next: save → CSV + optional GHL push.)
+                </div>
+              </div>
+              <form className="space-y-3">
+                <input
+                  className="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none focus:border-cyan-300/40"
+                  placeholder="Name"
+                />
+                <input
+                  className="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none focus:border-cyan-300/40"
+                  placeholder="Email"
+                />
+                <input
+                  className="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none focus:border-cyan-300/40"
+                  placeholder="Website / IG"
+                />
+                <textarea
+                  className="h-28 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none focus:border-cyan-300/40"
+                  placeholder="What are you trying to grow?"
+                />
+                <button type="button" className="hud-btn hud-btn--primary w-full">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <footer className="mt-10 pb-10">
+          <div className="hud-sub">Local-first • GitHub source-of-truth • Approval-gated shipping</div>
+        </footer>
+      </div>
     </div>
   );
 }
