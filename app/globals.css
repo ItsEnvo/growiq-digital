@@ -19,12 +19,18 @@ body {
   height: 100%;
 }
 
+html {
+  background: rgb(var(--bg));
+  color-scheme: dark;
+}
+
 body {
+  min-height: 100%;
   background:
     radial-gradient(1200px 700px at 15% -10%, rgba(var(--petrol), 0.55), transparent 58%),
     radial-gradient(900px 550px at 90% 0%, rgba(var(--mint), 0.10), transparent 55%),
     radial-gradient(900px 700px at 50% 110%, rgba(var(--petrol), 0.28), transparent 55%),
-    rgb(var(--bg));
+    rgb(var(--bg)) !important;
   color: rgb(var(--text));
 }
 
