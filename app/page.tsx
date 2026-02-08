@@ -110,10 +110,40 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="mt-5">
+        <div className="mt-5 flex flex-wrap gap-2">
           <Link className="hud-btn hud-btn--primary" href="/services">
             View full services
           </Link>
+          <Link className="hud-btn" href="/pricing">
+            View pricing
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <div className="hud-kicker">Pricing</div>
+        <div className="mt-3 hud-card p-6">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:items-center">
+            <div>
+              <div className="text-lg font-semibold">Starter: $1,000–$1,500 / mo</div>
+              <div className="mt-2 text-sm text-zinc-300/80">
+                The fast lane to a real system: funnel + pipeline + automation foundation.
+              </div>
+              <div className="mt-4 flex gap-2">
+                <Link className="hud-btn hud-btn--primary" href="/pricing">
+                  See tiers
+                </Link>
+                <Link className="hud-btn" href="/contact?mode=audit">
+                  Free Audit
+                </Link>
+              </div>
+            </div>
+            <div className="text-sm text-zinc-200/80">
+              <div className="font-semibold text-zinc-100">Targets</div>
+              <div className="mt-2">$10k/mo → $20k/mo → $50k/mo, scaled by iteration + proof.</div>
+              <div className="mt-3 text-xs tracking-widest text-zinc-400">No income promises. Just execution.</div>
+            </div>
+          </div>
         </div>
       </section>
 

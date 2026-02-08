@@ -40,6 +40,12 @@ export default function RootLayout({
                   <Link className="hud-nav__link" href="/services">
                     Services
                   </Link>
+                  <Link className="hud-nav__link" href="/services">
+                    Services
+                  </Link>
+                  <Link className="hud-nav__link" href="/pricing">
+                    Pricing
+                  </Link>
                   <Link className="hud-nav__link" href="/proof">
                     Proof
                   </Link>
