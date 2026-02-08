@@ -1,129 +1,147 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
-    <div className="min-h-screen">
-      <div className="mx-auto max-w-6xl px-6 py-10">
-        <header className="hud-card p-6">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div>
-              <div className="hud-kicker">Grow IQ Digital</div>
-              <h1 className="mt-3 hud-title">AI-Native Growth Systems</h1>
-              <p className="mt-4 max-w-2xl text-zinc-200/90">
-                We build futuristic marketing ops: offer → funnel → automation → outreach — designed for speed, clarity, and
-                conversion.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                <span className="hud-chip">
-                  <span className="hud-dot" /> Funnels + GHL
-                </span>
-                <span className="hud-chip">
-                  <span className="hud-dot" /> Outreach Automation
-                </span>
-                <span className="hud-chip">
-                  <span className="hud-dot" /> AI Systems
-                </span>
+    <main className="mx-auto max-w-6xl px-6 py-10">
+      <section className="hud-card p-7">
+        <div className="flex flex-col gap-7 md:flex-row md:items-start md:justify-between">
+          <div>
+            <div className="hud-kicker">Precision. Performance. Predictability.</div>
+            <h1 className="mt-3 hud-title">We build systems that sell for you.</h1>
+            <p className="mt-4 max-w-2xl text-zinc-200/85">
+              Done-for-you marketing systems that turn traffic into clients — using funnels, ads, and AI automation.
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              <span className="hud-chip">
+                <span className="hud-dot" /> Funnels / GHL
+              </span>
+              <span className="hud-chip">
+                <span className="hud-dot" /> Ads
+              </span>
+              <span className="hud-chip">
+                <span className="hud-dot" /> AI Systems + Automation
+              </span>
+            </div>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link className="hud-btn hud-btn--primary" href="/contact?mode=audit">
+                Free Audit
+              </Link>
+              <Link className="hud-btn hud-btn--ghost" href="/contact?mode=call">
+                Book a Call
+              </Link>
+            </div>
+
+            <div className="mt-5 text-xs tracking-widest text-zinc-400">
+              Automate. Optimize. Scale.
+            </div>
+          </div>
+
+          <div className="w-full max-w-md">
+            <div className="hud-card p-6">
+              <div className="hud-kicker">How it works</div>
+              <div className="mt-4 space-y-3 text-sm text-zinc-200/85">
+                <div>
+                  <span className="text-zinc-100 font-semibold">1) Diagnose</span> — what’s leaking leads?
+                </div>
+                <div>
+                  <span className="text-zinc-100 font-semibold">2) Build</span> — funnel + ads + automation.
+                </div>
+                <div>
+                  <span className="text-zinc-100 font-semibold">3) Optimize</span> — track, iterate, scale.
+                </div>
+              </div>
+              <div className="mt-5 flex gap-2">
+                <Link className="hud-btn hud-btn--primary" href="/services">
+                  Services
+                </Link>
+                <Link className="hud-btn" href="/proof">
+                  Proof
+                </Link>
               </div>
             </div>
-
-            <div className="flex flex-col gap-3">
-              <a className="hud-btn hud-btn--primary" href="#contact">
-                Get a Free Audit
-              </a>
-              <a className="hud-btn" href="#services">
-                View Services
-              </a>
-            </div>
-          </div>
-        </header>
-
-        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div className="hud-card p-5">
-            <div className="hud-kicker">Outcome</div>
-            <div className="mt-3 text-xl font-semibold">More booked calls</div>
-            <div className="mt-2 text-sm text-zinc-300/80">Tight qualification + follow-up that doesn’t leak leads.</div>
-          </div>
-          <div className="hud-card p-5">
-            <div className="hud-kicker">System</div>
-            <div className="mt-3 text-xl font-semibold">One pipeline</div>
-            <div className="mt-2 text-sm text-zinc-300/80">Everything tracked. Automations run the boring parts.</div>
-          </div>
-          <div className="hud-card p-5">
-            <div className="hud-kicker">Speed</div>
-            <div className="mt-3 text-xl font-semibold">Ship weekly</div>
-            <div className="mt-2 text-sm text-zinc-300/80">Small milestones that compound into a real machine.</div>
           </div>
         </div>
+      </section>
 
-        <section id="services" className="mt-10">
-          <div className="hud-kicker">Services</div>
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-            {[
-              {
-                t: "Offer + Funnel Build",
-                d: "Landing pages, forms, routing, and conversion-first UX.",
-              },
-              {
-                t: "GHL Automations",
-                d: "Pipelines, reminders, confirmations, no-show recovery, reactivation.",
-              },
-              {
-                t: "Outbound Engine",
-                d: "Lead lists → sequences → tracking → follow-up → booked calls.",
-              },
-              {
-                t: "AI Ops Layer",
-                d: "Assistants, scripts, internal tools, and dashboards (mission control style).",
-              },
-            ].map((x) => (
-              <div key={x.t} className="hud-card p-5">
-                <div className="text-lg font-semibold">{x.t}</div>
-                <div className="mt-2 text-sm text-zinc-300/80">{x.d}</div>
-              </div>
-            ))}
-          </div>
-        </section>
+      <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="hud-card p-5">
+          <div className="hud-kicker">Outcome</div>
+          <div className="mt-3 text-xl font-semibold">More booked calls</div>
+          <div className="mt-2 text-sm text-zinc-300/80">Qualification + follow-up that doesn’t leak leads.</div>
+        </div>
+        <div className="hud-card p-5">
+          <div className="hud-kicker">System</div>
+          <div className="mt-3 text-xl font-semibold">One pipeline</div>
+          <div className="mt-2 text-sm text-zinc-300/80">Everything tracked. Automations run the boring parts.</div>
+        </div>
+        <div className="hud-card p-5">
+          <div className="hud-kicker">Speed</div>
+          <div className="mt-3 text-xl font-semibold">Ship weekly</div>
+          <div className="mt-2 text-sm text-zinc-300/80">Small milestones that compound into a real machine.</div>
+        </div>
+      </section>
 
-        <section id="contact" className="mt-10">
-          <div className="hud-kicker">Contact</div>
-          <div className="mt-4 hud-card p-6">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <div>
-                <div className="text-lg font-semibold">Free Audit Intake</div>
-                <div className="mt-2 text-sm text-zinc-300/80">
-                  Drop your info and what you’re trying to build. We’ll reply with a clear next step.
-                </div>
-                <div className="mt-4 text-sm text-zinc-300/80">
-                  (Form wiring comes next: save → CSV + optional GHL push.)
-                </div>
+      <section className="mt-10">
+        <div className="hud-kicker">Services</div>
+        <div className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2">
+          {[
+            {
+              t: "Funnels + GHL",
+              d: "Landing pages, intake, routing, pipelines, reminders, no-show recovery.",
+            },
+            {
+              t: "Ads",
+              d: "Launch, iterate, and scale campaigns with clean tracking + conversion-first pages.",
+            },
+            {
+              t: "AI Systems + Automation",
+              d: "Automate follow-up, ops, and reporting — keep humans on the high-leverage parts.",
+            },
+            {
+              t: "Conversion Cleanup",
+              d: "Fix the leaks: speed, copy, forms, follow-up, and handoff into sales.",
+            },
+          ].map((x) => (
+            <div key={x.t} className="hud-card p-5">
+              <div className="text-lg font-semibold">{x.t}</div>
+              <div className="mt-2 text-sm text-zinc-300/80">{x.d}</div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-5">
+          <Link className="hud-btn hud-btn--primary" href="/services">
+            View full services
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <div className="hud-kicker">Next step</div>
+        <div className="mt-3 hud-card p-6">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:items-center">
+            <div>
+              <div className="text-lg font-semibold">Get a Free Audit</div>
+              <div className="mt-2 text-sm text-zinc-300/80">
+                Tell us what you’re building and what’s stuck. We’ll reply with a clear plan and the fastest next move.
               </div>
-              <form className="space-y-3">
-                <input
-                  className="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none focus:border-cyan-300/40"
-                  placeholder="Name"
-                />
-                <input
-                  className="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none focus:border-cyan-300/40"
-                  placeholder="Email"
-                />
-                <input
-                  className="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none focus:border-cyan-300/40"
-                  placeholder="Website / IG"
-                />
-                <textarea
-                  className="h-28 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none focus:border-cyan-300/40"
-                  placeholder="What are you trying to grow?"
-                />
-                <button type="button" className="hud-btn hud-btn--primary w-full">
-                  Submit
-                </button>
-              </form>
+              <div className="mt-4 flex gap-2">
+                <Link className="hud-btn hud-btn--primary" href="/contact?mode=audit">
+                  Free Audit
+                </Link>
+                <Link className="hud-btn" href="/contact?mode=call">
+                  Book a Call
+                </Link>
+              </div>
+            </div>
+            <div className="text-sm text-zinc-200/80">
+              <div className="font-semibold text-zinc-100">General niche (for now)</div>
+              <div className="mt-2">Once we pick a single ICP, the entire site + outbound engine gets sharper overnight.</div>
             </div>
           </div>
-        </section>
-
-        <footer className="mt-10 pb-10">
-          <div className="hud-sub">Local-first • GitHub source-of-truth • Approval-gated shipping</div>
-        </footer>
-      </div>
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }
