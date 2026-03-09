@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import Link from "next/link";
 import StickyCta from "./components/StickyCta";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// Add Playfair Display via link in head
 
 export const metadata: Metadata = {
   title: "GrowIQ Digital",
@@ -26,57 +23,45 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> 
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet" />
+      </head>
+      <body className={`${inter.variable} antialiased`}> 
         <div className="min-h-screen">
-          <div className="mx-auto max-w-6xl px-6 pt-8">
-            <div className="hud-topbar">
-              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div className="flex items-center justify-between gap-4">
-                  <Link href="/" className="hud-brand">
-                    <span className="hud-brand__word">GrowIQ</span>
-                    <span className="hud-brand__mark" aria-hidden />
-                    <span className="hud-brand__sub">DIGITAL</span>
-                  </Link>
-
-                  <Link className="hud-btn md:hidden" href="/services">
-                    Services
-                  </Link>
+          {/* Navigation */}
+          <nav className="growiq-nav">
+            <div className="growiq-nav-content">
+              <Link href="/" className="growiq-brand">
+                <div className="growiq-brand-icon">
+                  <span className="gradient-text">G</span>
                 </div>
+                <span className="growiq-brand-text">Grow<span className="gradient-text">IQ</span> <span className="growiq-brand-sub">DIGITAL</span></span>
+              </Link>
 
-                <nav className="hud-nav hidden md:flex">
-                  <Link className="hud-nav__link" href="/services">
-                    Services
-                  </Link>
-                  <Link className="hud-nav__link" href="/pricing">
-                    Pricing
-                  </Link>
-                  <Link className="hud-nav__link" href="/proof">
-                    Proof
-                  </Link>
-                  <Link className="hud-nav__link" href="/docs">
-                    Docs
-                  </Link>
-                  <Link className="hud-nav__link" href="/book">
-                    Book a Call
-                  </Link>
-                  <Link className="hud-nav__link" href="/contact?mode=audit">
-                    Free Audit
-                  </Link>
-                </nav>
+              <div className="growiq-nav-links">
+                <Link href="/services" className="growiq-nav-link">Services</Link>
+                <Link href="/pricing" className="growiq-nav-link">Pricing</Link>
+                <Link href="/proof" className="growiq-nav-link">Proof</Link>
+                <Link href="/docs" className="growiq-nav-link">Docs</Link>
+                <Link href="/book" className="growiq-nav-link">Book a Call</Link>
+                <Link href="/contact?mode=audit" className="growiq-cta-btn">Free Audit</Link>
               </div>
             </div>
-          </div>
+          </nav>
 
           <div className="pb-24 md:pb-0">{children}</div>
 
           <StickyCta />
 
-          <div className="mx-auto max-w-6xl px-6 pb-10">
-            <div className="mt-10 hud-footer">
-              <div className="hud-sub">Local-first • GitHub source-of-truth • Approval-gated shipping</div>
-              <div className="hud-sub">© {new Date().getFullYear()} GrowIQ Digital</div>
+          {/* Footer */}
+          <footer className="growiq-footer">
+            <div className="growiq-footer-content">
+              <div className="growiq-footer-text">Local-first • GitHub source-of-truth • Approval-gated shipping</div>
+              <div className="growiq-footer-text">© {new Date().getFullYear()} GrowIQ Digital</div>
             </div>
-          </div>
+          </footer>
         </div>
       </body>
     </html>

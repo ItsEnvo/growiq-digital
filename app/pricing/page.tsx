@@ -9,7 +9,9 @@ interface PricingTier {
   name: string;
   monthlyPrice: string;
   setupFee: string;
-  agents: string[];
+  agents: string;
+  agentList: string;
+  features: string[];
   highlight?: boolean;
 }
 
@@ -17,16 +19,44 @@ const PRICING_TIERS: PricingTier[] = [
   {
     id: 'growth',
     name: 'Growth',
-    monthlyPrice: '$2,500/mo',
+    monthlyPrice: '$2,500',
     setupFee: '$2,500 setup',
-    agents: ['IRIS', 'ATLAS', 'PULSE', 'SYNC', 'WAVE', 'RADAR'],
+    agents: '6 AI Agents',
+    agentList: 'IRIS · ATLAS · PULSE · SYNC · WAVE · RADAR',
+    features: [
+      '6 AI agents (Reception, Sales, Follow-Up, Scheduling, Social Publishing, Reporting)',
+      'Command Center dashboard access',
+      'Landing page build',
+      'Google Ads setup & management',
+      'CRM pipeline configuration',
+      'Automated booking flow',
+      'Social media scheduling & publishing',
+      'Daily briefings + weekly reports',
+      'Email support',
+    ],
   },
   {
     id: 'scale',
     name: 'Scale',
-    monthlyPrice: '$4,500/mo',
+    monthlyPrice: '$4,500',
     setupFee: '$3,500 setup',
-    agents: ['All 10 agents'],
+    agents: 'All 10 AI Agents',
+    agentList: 'IRIS · ATLAS · PULSE · SYNC · AEGIS · PRISM · MUSE · WAVE · RADAR · SCOUT',
+    features: [
+      'All 10 AI agents deployed',
+      'Full Command Center with all dashboards',
+      'Full website design & build',
+      'Branded content creation (MUSE)',
+      'Social media management across all platforms',
+      'Advanced Google Ads + SCOUT optimization',
+      'Complete CRM & pipeline automation',
+      'Multi-channel (phone, SMS, email, chat, social)',
+      'Call transcripts & conversation history',
+      'Agent retraining as your business evolves',
+      'Monthly strategy call',
+      'Slack/Telegram direct access',
+      'Priority support',
+    ],
     highlight: true,
   },
 ];
@@ -121,17 +151,17 @@ export default function PricingPage() {
   };
 
   const getButtonText = (tier: PricingTier) => {
-    if (!user) return 'Get Started';
+    if (!user) return 'Book a Strategy Call';
     
     if (subscription && ['active', 'trialing'].includes(subscription.status)) {
       if (subscription.plan === tier.id) {
         return 'Current Plan';
       } else if (subscription.plan === 'growth' && tier.id === 'scale') {
-        return 'Upgrade';
+        return 'Upgrade to Scale';
       }
     }
     
-    return 'Get Started';
+    return 'Book a Strategy Call';
   };
 
   const isButtonDisabled = (tier: PricingTier) => {
@@ -145,81 +175,196 @@ export default function PricingPage() {
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-6 py-10">
-      <section className="hud-card p-7">
-        <div className="hud-kicker">Pricing</div>
-        <h1 className="mt-3 hud-title">Choose your AI team.</h1>
-        <p className="mt-4 max-w-2xl text-zinc-200/85">
-          Pre-trained OpenClaw agents ready to deploy. From lead capture to customer success — your AI workforce is here.
-        </p>
-        <div className="mt-6 flex gap-2">
-          <Link className="hud-btn hud-btn--primary" href="/book">
-            Book a Call
-          </Link>
-          <Link className="hud-btn" href="/contact?mode=audit">
-            Free Audit
-          </Link>
+    <>
+      {/* Hero Section */}
+      <section style={{ padding: '120px 24px 60px' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
+          <div className="section-divider" style={{ marginBottom: 40 }} />
+          
+          <div className="growiq-pill" style={{ marginBottom: 16 }}>
+            <span className="growiq-pill-dot" />
+            Pricing
+          </div>
+          <h1 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, marginBottom: 12 }}>
+            Invest in Your <span className="gradient-text">AI Team</span>
+          </h1>
+          <p className="text-secondary" style={{ fontSize: 15, maxWidth: 480, margin: '0 auto 32px', lineHeight: 1.8 }}>
+            Month-to-month. No long-term contracts. Cancel anytime.
+          </p>
+
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+            <Link href="/contact?mode=call" className="growiq-btn">
+              Book Strategy Call
+            </Link>
+            <Link href="/contact?mode=audit" className="growiq-btn growiq-btn--secondary">
+              Free Audit
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-        {PRICING_TIERS.map((tier) => (
-          <div
-            key={tier.id}
-            className={`hud-card p-6 ${tier.highlight ? "ring-1 ring-[rgba(var(--mint),0.25)]" : ""}`}
-          >
-            <div className="hud-kicker">{tier.name}</div>
-            <div className="mt-3 text-2xl font-semibold">{tier.monthlyPrice}</div>
-            <div className="mt-1 text-sm text-zinc-200/80">{tier.setupFee}</div>
-            
-            <ul className="mt-4 space-y-2 text-sm text-zinc-200/80">
-              <li className="flex gap-2">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[rgba(var(--mint),0.9)]" />
-                <span>{tier.agents.join(', ')}</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[rgba(var(--mint),0.9)]" />
-                <span>Full workspace setup</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[rgba(var(--mint),0.9)]" />
-                <span>Deployment automation</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[rgba(var(--mint),0.9)]" />
-                <span>Premium support</span>
-              </li>
-            </ul>
+      {/* Pricing Cards */}
+      <section style={{ padding: '60px 24px' }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: 20, alignItems: 'start' }}>
+            {PRICING_TIERS.map((tier) => (
+              <div
+                key={tier.id}
+                className={tier.highlight ? 'growiq-card--featured' : 'growiq-card'}
+                style={{
+                  position: 'relative',
+                  borderRadius: 24,
+                  padding: 32,
+                  transform: tier.highlight ? 'scale(1.03)' : 'none',
+                  backdropFilter: 'blur(20px)',
+                }}
+              >
+                {tier.highlight && (
+                  <div style={{
+                    position: 'absolute',
+                    top: -12,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    padding: '5px 18px',
+                    borderRadius: 99,
+                    fontSize: 10,
+                    fontWeight: 900,
+                    letterSpacing: '.15em',
+                    textTransform: 'uppercase',
+                    background: 'linear-gradient(135deg, #00e87b, #00b4d8)',
+                    color: '#fff',
+                    boxShadow: '0 0 20px rgba(0,232,123,.3)',
+                  }}>
+                    Full Team
+                  </div>
+                )}
 
-            <button
-              onClick={() => handleGetStarted(tier.id)}
-              disabled={isButtonDisabled(tier) || loading}
-              className={`mt-5 hud-btn w-full ${
-                tier.highlight ? 'hud-btn--primary' : ''
-              } ${
-                isButtonDisabled(tier) ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-            >
-              {checkoutLoading === tier.id ? 'Processing...' : getButtonText(tier)}
-            </button>
-            
-            <div className="mt-3 text-xs tracking-widest text-zinc-400 text-center">
-              Cancel anytime • No setup lock-ins
-            </div>
+                <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 4 }}>{tier.name}</h3>
+                <p className="text-secondary" style={{ fontSize: 13, marginBottom: 20 }}>
+                  {tier.id === 'growth' 
+                    ? 'Essential AI infrastructure for businesses ready to stop missing leads.'
+                    : 'The full AI workforce. Every agent, every system, fully managed.'
+                  }
+                </p>
+
+                {/* Agent count badge */}
+                <div style={{
+                  padding: '10px 16px',
+                  borderRadius: 12,
+                  marginBottom: 20,
+                  background: tier.highlight ? 'rgba(0,232,123,.06)' : 'rgba(255,255,255,.02)',
+                  border: tier.highlight ? '1px solid rgba(0,232,123,.12)' : '1px solid rgba(255,255,255,.04)',
+                }}>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: tier.highlight ? '#00e87b' : '#fff', marginBottom: 2 }}>
+                    {tier.agents}
+                  </div>
+                  <div style={{ fontSize: 11, color: 'rgba(199,214,255,.35)' }}>
+                    {tier.agentList}
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: 8 }}>
+                  <span style={{ fontSize: 42, fontWeight: 900, color: '#fff' }}>{tier.monthlyPrice}</span>
+                  <span className="text-muted" style={{ fontSize: 14 }}>/mo</span>
+                </div>
+                <div className="text-muted" style={{ fontSize: 12, marginBottom: 28 }}>+ {tier.setupFee}</div>
+
+                <ul style={{ listStyle: 'none', padding: 0, marginBottom: 28 }}>
+                  {tier.features.map((feature, j) => (
+                    <li key={j} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      padding: '7px 0',
+                      fontSize: 13,
+                      color: 'rgba(199,214,255,.6)',
+                    }}>
+                      <span style={{ 
+                        color: tier.highlight ? '#00e87b' : 'rgba(199,214,255,.3)', 
+                        fontSize: 15, 
+                        flexShrink: 0 
+                      }}>✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  onClick={() => handleGetStarted(tier.id)}
+                  disabled={isButtonDisabled(tier) || loading}
+                  className="growiq-btn"
+                  style={{
+                    width: '100%',
+                    justifyContent: 'center',
+                    background: tier.highlight ? 'linear-gradient(135deg, rgba(0,232,123,.12), rgba(0,180,216,.12))' : 'rgba(255,255,255,.03)',
+                    border: tier.highlight ? '1px solid rgba(0,232,123,.35)' : '1px solid rgba(255,255,255,.08)',
+                    boxShadow: tier.highlight ? '0 0 20px rgba(0,232,123,.1)' : 'none',
+                    opacity: isButtonDisabled(tier) ? 0.5 : 1,
+                    cursor: isButtonDisabled(tier) ? 'not-allowed' : 'pointer',
+                  }}
+                  onMouseEnter={e => {
+                    if (!isButtonDisabled(tier)) {
+                      e.currentTarget.style.borderColor = tier.highlight ? 'rgba(0,232,123,.5)' : 'rgba(255,255,255,.15)'
+                      if (tier.highlight) e.currentTarget.style.boxShadow = '0 0 30px rgba(0,232,123,.2)'
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (!isButtonDisabled(tier)) {
+                      e.currentTarget.style.borderColor = tier.highlight ? 'rgba(0,232,123,.35)' : 'rgba(255,255,255,.08)'
+                      if (tier.highlight) e.currentTarget.style.boxShadow = '0 0 20px rgba(0,232,123,.1)'
+                    }
+                  }}
+                >
+                  {checkoutLoading === tier.id ? 'Processing...' : getButtonText(tier)}
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
-      </section>
 
-      {!user && (
-        <section className="mt-6 hud-card p-6 text-center">
-          <p className="text-zinc-200/80">
-            Already have an account?{' '}
-            <Link href="/auth/login" className="text-mint hover:underline">
-              Sign in
-            </Link>
+          <p style={{ textAlign: 'center', marginTop: 40, fontSize: 13, color: 'rgba(199,214,255,.3)' }}>
+            Ad spend is separate and paid directly to Google. Custom enterprise plans available for multi-location businesses.
           </p>
-        </section>
-      )}
-    </main>
+
+          {/* Elite Custom section */}
+          <div className="growiq-card" style={{ 
+            marginTop: 40, 
+            padding: 32, 
+            textAlign: 'center',
+            background: 'rgba(8,12,28,.95)'
+          }}>
+            <h3 style={{ fontSize: 20, fontWeight: 800, marginBottom: 8 }}>Elite Custom</h3>
+            <p className="text-secondary" style={{ fontSize: 14, marginBottom: 16 }}>
+              Multi-location businesses, enterprise integrations, custom AI agents
+            </p>
+            <Link href="/contact?mode=call" className="growiq-btn">
+              Contact for Pricing
+            </Link>
+          </div>
+
+          {!user && (
+            <div style={{
+              marginTop: 40,
+              padding: 24,
+              textAlign: 'center',
+              border: '1px solid rgba(255,255,255,.06)',
+              borderRadius: 18,
+              background: 'rgba(8,12,28,.5)'
+            }}>
+              <p className="text-secondary">
+                Already have an account?{' '}
+                <Link 
+                  href="/auth/login" 
+                  style={{ color: '#00e87b', fontWeight: 600 }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#00b4d8'}
+                  onMouseLeave={e => e.currentTarget.style.color = '#00e87b'}
+                >
+                  Sign in to manage your plan
+                </Link>
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 }
