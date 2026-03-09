@@ -1,6 +1,7 @@
 'use client'
 
-import { Check } from 'lucide-react'
+import { Check, ArrowRight } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const plans = [
   {
@@ -52,6 +53,12 @@ const plans = [
 ]
 
 export default function Pricing() {
+  const router = useRouter()
+
+  const handleGetStarted = (plan: string) => {
+    router.push(`/auth/signup?plan=${plan.toLowerCase()}`)
+  }
+
   return (
     <section id="pricing" style={{ padding: '100px 24px', position: 'relative' }}>
       <div style={{
@@ -125,12 +132,13 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <button onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })} style={{
+              <button onClick={() => handleGetStarted(plan.name)} style={{
                 width: '100%', padding: '16px', borderRadius: 14, fontSize: 14, fontWeight: 800, color: '#fff',
                 background: plan.flagship ? 'linear-gradient(135deg, rgba(0,232,123,.12), rgba(0,180,216,.12))' : 'rgba(255,255,255,.03)',
                 border: plan.flagship ? '1px solid rgba(0,232,123,.35)' : '1px solid rgba(255,255,255,.08)',
                 boxShadow: plan.flagship ? '0 0 20px rgba(0,232,123,.1)' : 'none',
                 transition: 'all .3s',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.borderColor = plan.flagship ? 'rgba(0,232,123,.5)' : 'rgba(255,255,255,.15)'
@@ -141,7 +149,18 @@ export default function Pricing() {
                 if (plan.flagship) e.currentTarget.style.boxShadow = '0 0 20px rgba(0,232,123,.1)'
               }}
               >
-                Book a Strategy Call
+                Get Started <ArrowRight size={16} />
+              </button>
+
+              <button onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })} style={{
+                width: '100%', padding: '12px', borderRadius: 12, fontSize: 12, fontWeight: 600,
+                color: 'rgba(199,214,255,.4)', background: 'transparent', border: 'none',
+                marginTop: 8, transition: 'color .3s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'rgba(199,214,255,.7)' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(199,214,255,.4)' }}
+              >
+                or book a free strategy call
               </button>
             </div>
           ))}
