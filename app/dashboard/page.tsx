@@ -1,375 +1,115 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-
-interface Agent {
-  id: number;
-  agent_type: string;
-  status: string;
-  config_json?: string;
-}
-
-interface Activity {
-  id: number;
-  agent_type: string;
-  message: string;
-  created_at: string;
-}
-
-interface Stats {
-  leads: number;
-  calls: number;
-  appointments: number;
-}
+'use client'
 
 const agentData = [
-  { emoji: '📞', name: 'IRIS', role: 'Reception', status: 'active', activity: 'Handling call #47 - New patient inquiry' },
-  { emoji: '💼', name: 'ATLAS', role: 'Sales', status: 'active', activity: 'Follow-up sequence sent to lead #312' },
-  { emoji: '🔄', name: 'PULSE', role: 'Follow-Up', status: 'active', activity: 'Re-engagement campaign: 3 responses today' },
-  { emoji: '📅', name: 'SYNC', role: 'Scheduling', status: 'active', activity: 'Appointment confirmed: Sarah M. - Thu 2PM' },
-  { emoji: '🛡️', name: 'AEGIS', role: 'Support', status: 'active', activity: 'Ticket resolved: Insurance coverage question' },
-  { emoji: '⭐', name: 'PRISM', role: 'Reviews', status: 'active', activity: 'Review secured: 5-star on Google from Mike R.' },
-];
+  { emoji: '📞', name: 'IRIS', role: 'Reception', color: '#00e87b', activity: 'Answered 47 calls today · 3 in queue', metric: '0 missed' },
+  { emoji: '💼', name: 'ATLAS', role: 'Sales', color: '#00b4d8', activity: 'Engaged 23 leads · 14 responded', metric: '61% response' },
+  { emoji: '🔄', name: 'PULSE', role: 'Follow-Up', color: '#f59e0b', activity: 'Recovered 4 no-shows · 12 sequences active', metric: '33% recovery' },
+  { emoji: '📅', name: 'SYNC', role: 'Scheduling', color: '#a855f7', activity: '12 booked today · 3 rescheduled', metric: '2 reminders sent' },
+  { emoji: '🛡️', name: 'AEGIS', role: 'Support', color: '#06b6d4', activity: 'Handled 31 inquiries · 2 escalated', metric: '94% resolved' },
+  { emoji: '⭐', name: 'PRISM', role: 'Reviews', color: '#ef4444', activity: '6 review requests sent · 3 completed', metric: '4.8★ avg' },
+  { emoji: '🎨', name: 'MUSE', role: 'Content', color: '#f472b6', activity: '3 posts designed · 1 awaiting approval', metric: '2 approved' },
+  { emoji: '📱', name: 'WAVE', role: 'Social', color: '#818cf8', activity: 'Published 2 posts · 4 scheduled this week', metric: '1.2K reach' },
+  { emoji: '📊', name: 'RADAR', role: 'Intel', color: '#22c55e', activity: 'Daily brief compiled · 3 alerts triggered', metric: 'Report ready' },
+  { emoji: '🎯', name: 'SCOUT', role: 'Marketing', color: '#e879f9', activity: 'CPC optimized · A/B test running', metric: '$4.20 CPL' },
+]
 
-export default function DashboardOverview() {
-  const [agents, setAgents] = useState<Agent[]>([]);
-  const [activity, setActivity] = useState<Activity[]>([]);
-  const [stats, setStats] = useState<Stats>({ leads: 0, calls: 0, appointments: 0 });
-  const [loading, setLoading] = useState(true);
-  const [activeAgentIdx, setActiveAgentIdx] = useState(0);
+const activityFeed = [
+  { agent: 'IRIS', color: '#00e87b', text: 'Answered call — new patient inquiry from Google Ads, qualified and booked', time: '2m ago' },
+  { agent: 'ATLAS', color: '#00b4d8', text: 'Lead #308 engaged — sent Botox intro offer, awaiting reply', time: '5m ago' },
+  { agent: 'PULSE', color: '#f59e0b', text: 'No-show recovery — Maria K. replied "yes" — rebooked Friday 3pm', time: '8m ago' },
+  { agent: 'PRISM', color: '#ef4444', text: 'New review! James P. left 5★ on Google: "Amazing experience"', time: '12m ago' },
+  { agent: 'MUSE', color: '#f472b6', text: 'Created "Spring Glow-Up" promo graphic — pending approval', time: '18m ago' },
+  { agent: 'WAVE', color: '#818cf8', text: 'Published to Instagram + Google Business — "Before/After" post', time: '25m ago' },
+  { agent: 'SYNC', color: '#a855f7', text: 'Sent 24hr reminder to 5 tomorrow appointments', time: '30m ago' },
+  { agent: 'SCOUT', color: '#e879f9', text: 'Paused underperforming ad group — reallocated $12/day to top performer', time: '45m ago' },
+  { agent: 'AEGIS', color: '#06b6d4', text: 'Handled pricing inquiry via website chat — sent treatment menu PDF', time: '52m ago' },
+  { agent: 'RADAR', color: '#22c55e', text: 'Alert: Lead volume up 22% vs last week — Google Ads driving spike', time: '1h ago' },
+]
 
-  useEffect(() => {
-    fetchDashboardData();
-    
-    // Rotate active agent every 3 seconds
-    const interval = setInterval(() => {
-      setActiveAgentIdx(prev => (prev + 1) % agentData.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const fetchDashboardData = async () => {
-    try {
-      const [agentsRes, activityRes] = await Promise.all([
-        fetch('/api/agents'),
-        fetch('/api/activity'),
-      ]);
-
-      if (agentsRes.ok) {
-        const agentsData = await agentsRes.json();
-        setAgents(agentsData);
-      }
-
-      if (activityRes.ok) {
-        const activityData = await activityRes.json();
-        setActivity(activityData.slice(0, 10));
-      }
-
-      // Simulated stats
-      setStats({
-        leads: 47,
-        calls: 124,
-        appointments: 23,
-      });
-    } catch (error) {
-      console.error('Failed to fetch dashboard data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString();
-  };
-
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 400 }}>
-        <div className="dashboard-card" style={{ padding: 40, textAlign: 'center' }}>
-          <div style={{ fontSize: 16, color: 'rgba(199,214,255,.6)' }}>Loading Command Center...</div>
-        </div>
-      </div>
-    );
-  }
-
+export default function DashboardPage() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-      {/* Header */}
-      <div className="dashboard-header">
-        <div className="growiq-pill" style={{ marginBottom: 16 }}>
-          <span className="growiq-pill-dot" />
-          Live Operations
-        </div>
-        <h1 className="serif" style={{ fontSize: 36, fontWeight: 800, marginBottom: 8 }}>
-          <span className="gradient-text">Command Center</span>
-        </h1>
-        <p className="text-secondary" style={{ fontSize: 14 }}>
-          Monitor your AI workforce • Real-time performance • Full system visibility
-        </p>
+    <div>
+      <h1 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 4 }}>Good evening 👋</h1>
+      <p style={{ fontSize: 13, color: 'rgba(199,214,255,.4)', marginBottom: 28 }}>Here's what your AI team has been up to today.</p>
+
+      {/* Stat cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12, marginBottom: 28 }}>
+        {[
+          { label: 'Leads Today', val: '23', change: '+18%', up: true, color: '#00e87b' },
+          { label: 'Calls Answered', val: '47', change: '0 missed', up: true, color: '#00b4d8' },
+          { label: 'Appointments', val: '12', change: '+3 vs yesterday', up: true, color: '#a855f7' },
+          { label: 'Revenue Influenced', val: '$8,400', change: 'This week', up: true, color: '#f59e0b' },
+          { label: 'Reviews', val: '3 new', change: '4.8★ avg', up: true, color: '#ef4444' },
+          { label: 'Posts Published', val: '2', change: '4 scheduled', up: true, color: '#818cf8' },
+        ].map((s, i) => (
+          <div key={i} style={{
+            padding: '18px 16px', borderRadius: 16,
+            background: 'linear-gradient(180deg, rgba(10,16,38,.6), rgba(5,8,16,.4))',
+            border: '1px solid rgba(255,255,255,.05)',
+          }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: 'rgba(199,214,255,.3)', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 8 }}>{s.label}</div>
+            <div style={{ fontSize: 26, fontWeight: 900, color: s.color }}>{s.val}</div>
+            <div style={{ fontSize: 11, color: 'rgba(199,214,255,.35)', marginTop: 2 }}>{s.change}</div>
+          </div>
+        ))}
       </div>
 
-      {/* Key Metrics */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
-        <div className="dashboard-card">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-            <span style={{ fontSize: 24 }}>📈</span>
-            <div className="growiq-pill" style={{ fontSize: 8 }}>
-              <span className="growiq-pill-dot" />
-              THIS WEEK
-            </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="overview-cols">
+        {/* Live Agent Feed */}
+        <div style={{
+          padding: 20, borderRadius: 20,
+          background: 'linear-gradient(180deg, rgba(10,16,38,.6), rgba(5,8,16,.4))',
+          border: '1px solid rgba(255,255,255,.05)',
+        }}>
+          <div style={{ fontSize: 12, fontWeight: 800, color: 'rgba(199,214,255,.5)', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 16 }}>
+            Live Agent Feed
           </div>
-          <div style={{ fontSize: 32, fontWeight: 900, color: '#00e87b', marginBottom: 4 }}>{stats.leads}</div>
-          <div style={{ fontSize: 12, color: 'rgba(199,214,255,.4)' }}>New Leads Generated</div>
-        </div>
-
-        <div className="dashboard-card">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-            <span style={{ fontSize: 24 }}>📞</span>
-            <div className="growiq-pill" style={{ fontSize: 8 }}>
-              <span className="growiq-pill-dot" />
-              THIS WEEK
-            </div>
-          </div>
-          <div style={{ fontSize: 32, fontWeight: 900, color: '#00b4d8', marginBottom: 4 }}>{stats.calls}</div>
-          <div style={{ fontSize: 12, color: 'rgba(199,214,255,.4)' }}>Calls Handled by AI</div>
-        </div>
-
-        <div className="dashboard-card">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-            <span style={{ fontSize: 24 }}>📅</span>
-            <div className="growiq-pill" style={{ fontSize: 8 }}>
-              <span className="growiq-pill-dot" />
-              THIS WEEK
-            </div>
-          </div>
-          <div style={{ fontSize: 32, fontWeight: 900, color: '#f59e0b', marginBottom: 4 }}>{stats.appointments}</div>
-          <div style={{ fontSize: 12, color: 'rgba(199,214,255,.4)' }}>Appointments Booked</div>
-        </div>
-
-        <div className="dashboard-card">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-            <span style={{ fontSize: 24 }}>💰</span>
-            <div className="growiq-pill" style={{ fontSize: 8 }}>
-              <span className="growiq-pill-dot" />
-              PROJECTED
-            </div>
-          </div>
-          <div style={{ fontSize: 32, fontWeight: 900, color: '#a855f7', marginBottom: 4 }}>$18.2K</div>
-          <div style={{ fontSize: 12, color: 'rgba(199,214,255,.4)' }}>Revenue Influenced</div>
-        </div>
-      </div>
-
-      {/* AI Agent Status Grid */}
-      <div>
-        <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span>🤖</span> AI Agent Network
-        </h2>
-        
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
-          {agentData.map((agent, i) => (
-            <div 
-              key={i} 
-              className="dashboard-card"
-              style={{
-                transition: 'all .3s',
-                borderColor: i === activeAgentIdx ? 'rgba(0,232,123,.3)' : 'rgba(0,232,123,.1)',
-                boxShadow: i === activeAgentIdx ? '0 0 40px rgba(0,232,123,.1)' : '0 0 80px rgba(0,232,123,.04), 0 30px 80px rgba(0,0,0,.4)',
-                transform: i === activeAgentIdx ? 'scale(1.02)' : 'scale(1)',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-                <div style={{ fontSize: 32 }}>{agent.emoji}</div>
-                <div>
-                  <h3 style={{ fontSize: 16, fontWeight: 800, color: i === activeAgentIdx ? '#00e87b' : '#fff' }}>
-                    {agent.name}
-                  </h3>
-                  <p style={{ fontSize: 11, color: 'rgba(199,214,255,.4)', letterSpacing: '.1em', textTransform: 'uppercase' }}>
-                    {agent.role}
-                  </p>
-                </div>
-                <div style={{ marginLeft: 'auto' }}>
-                  <div style={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: '50%',
-                    background: agent.status === 'active' ? '#00e87b' : 'rgba(199,214,255,.3)',
-                    animation: agent.status === 'active' ? 'pulse 2s infinite' : 'none'
-                  }} />
-                </div>
-              </div>
-              
-              <div style={{ 
-                fontSize: 12, 
-                color: 'rgba(199,214,255,.6)', 
-                lineHeight: 1.5,
-                opacity: i === activeAgentIdx ? 1 : 0.7 
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            {activityFeed.map((e, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'flex-start', gap: 10, padding: '10px 0',
+                borderBottom: i < activityFeed.length - 1 ? '1px solid rgba(255,255,255,.04)' : 'none',
               }}>
-                {agent.activity}
+                <span style={{ fontSize: 10, fontWeight: 900, color: e.color, minWidth: 42, marginTop: 1 }}>{e.agent}</span>
+                <span style={{ fontSize: 12, color: 'rgba(199,214,255,.5)', lineHeight: 1.6, flex: 1 }}>{e.text}</span>
+                <span style={{ fontSize: 10, color: 'rgba(199,214,255,.2)', whiteSpace: 'nowrap', marginTop: 1 }}>{e.time}</span>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Recent Activity & Quick Actions */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-        {/* Recent Activity */}
-        <div>
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span>📊</span> Live Activity Feed
-          </h2>
-          
-          <div className="dashboard-card" style={{ maxHeight: 400, overflow: 'hidden' }}>
-            <div style={{ maxHeight: 350, overflowY: 'auto' }}>
-              {[
-                { time: '2m ago', agent: 'IRIS', action: 'Answered call from 555-0123 - New patient inquiry qualified' },
-                { time: '4m ago', agent: 'ATLAS', action: 'Sent personalized follow-up to lead #847 - Response rate 47%' },
-                { time: '7m ago', agent: 'SYNC', action: 'Appointment confirmed: Dr. Smith consultation Thu 3:30 PM' },
-                { time: '12m ago', agent: 'PRISM', action: 'Review request sent to completed patient - 5-star secured' },
-                { time: '18m ago', agent: 'PULSE', action: 'No-show recovery campaign launched - 3 responses already' },
-                { time: '23m ago', agent: 'AEGIS', action: 'Support ticket resolved: Insurance coverage question' },
-                { time: '31m ago', agent: 'MUSE', action: 'Content posted to Instagram - 12 likes in first 5 minutes' },
-                { time: '45m ago', agent: 'RADAR', action: 'Weekly performance report compiled - sent to leadership' },
-              ].map((item, i) => (
-                <div key={i} style={{ 
-                  padding: '12px 0', 
-                  borderBottom: i < 7 ? '1px solid rgba(255,255,255,.04)' : 'none' 
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                    <div style={{ 
-                      fontSize: 10, 
-                      color: 'rgba(199,214,255,.4)', 
-                      minWidth: 40,
-                      marginTop: 2 
-                    }}>
-                      {item.time}
-                    </div>
-                    <div style={{ 
-                      fontSize: 10, 
-                      fontWeight: 700, 
-                      color: '#00e87b', 
-                      minWidth: 50,
-                      marginTop: 2 
-                    }}>
-                      {item.agent}
-                    </div>
-                    <div style={{ 
-                      fontSize: 12, 
-                      color: 'rgba(199,214,255,.7)', 
-                      lineHeight: 1.4 
-                    }}>
-                      {item.action}
-                    </div>
+        {/* Agent Status */}
+        <div style={{
+          padding: 20, borderRadius: 20,
+          background: 'linear-gradient(180deg, rgba(10,16,38,.6), rgba(5,8,16,.4))',
+          border: '1px solid rgba(255,255,255,.05)',
+        }}>
+          <div style={{ fontSize: 12, fontWeight: 800, color: 'rgba(199,214,255,.5)', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 16 }}>
+            Agent Status
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {agentData.map((a, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px',
+                borderRadius: 10, background: 'rgba(255,255,255,.02)', border: '1px solid rgba(255,255,255,.03)',
+              }}>
+                <span style={{ fontSize: 18 }}>{a.emoji}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: 11, fontWeight: 800, color: a.color }}>{a.name}</span>
+                    <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#22c55e' }} />
+                    <span style={{ fontSize: 10, color: 'rgba(199,214,255,.25)' }}>{a.role}</span>
                   </div>
+                  <div style={{ fontSize: 10, color: 'rgba(199,214,255,.35)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{a.activity}</div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Actions */}
-        <div>
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span>⚡</span> Quick Actions
-          </h2>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <Link href="/dashboard/agents" className="dashboard-card" style={{ 
-              padding: 16, 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: 16,
-              textDecoration: 'none',
-              transition: 'all .2s'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,232,123,.2)'
-              e.currentTarget.style.boxShadow = '0 0 30px rgba(0,232,123,.08)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,232,123,.1)'
-              e.currentTarget.style.boxShadow = '0 0 80px rgba(0,232,123,.04), 0 30px 80px rgba(0,0,0,.4)'
-            }}>
-              <span style={{ fontSize: 24 }}>🤖</span>
-              <div>
-                <div style={{ fontWeight: 600, marginBottom: 2 }}>Manage AI Agents</div>
-                <div style={{ fontSize: 12, color: 'rgba(199,214,255,.4)' }}>Configure, train, and monitor your AI workforce</div>
+                <span style={{ fontSize: 10, fontWeight: 700, color: a.color, whiteSpace: 'nowrap' }}>{a.metric}</span>
               </div>
-            </Link>
-
-            <Link href="/dashboard/deploy" className="dashboard-card" style={{ 
-              padding: 16, 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: 16,
-              textDecoration: 'none',
-              transition: 'all .2s'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,232,123,.2)'
-              e.currentTarget.style.boxShadow = '0 0 30px rgba(0,232,123,.08)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,232,123,.1)'
-              e.currentTarget.style.boxShadow = '0 0 80px rgba(0,232,123,.04), 0 30px 80px rgba(0,0,0,.4)'
-            }}>
-              <span style={{ fontSize: 24 }}>🚀</span>
-              <div>
-                <div style={{ fontWeight: 600, marginBottom: 2 }}>Deploy Updates</div>
-                <div style={{ fontSize: 12, color: 'rgba(199,214,255,.4)' }}>Push new configurations and system updates</div>
-              </div>
-            </Link>
-
-            <Link href="/dashboard/billing" className="dashboard-card" style={{ 
-              padding: 16, 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: 16,
-              textDecoration: 'none',
-              transition: 'all .2s'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,232,123,.2)'
-              e.currentTarget.style.boxShadow = '0 0 30px rgba(0,232,123,.08)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,232,123,.1)'
-              e.currentTarget.style.boxShadow = '0 0 80px rgba(0,232,123,.04), 0 30px 80px rgba(0,0,0,.4)'
-            }}>
-              <span style={{ fontSize: 24 }}>📊</span>
-              <div>
-                <div style={{ fontWeight: 600, marginBottom: 2 }}>View Performance</div>
-                <div style={{ fontSize: 12, color: 'rgba(199,214,255,.4)' }}>Detailed analytics and ROI reports</div>
-              </div>
-            </Link>
-
-            <Link href="/dashboard/settings" className="dashboard-card" style={{ 
-              padding: 16, 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: 16,
-              textDecoration: 'none',
-              transition: 'all .2s'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,232,123,.2)'
-              e.currentTarget.style.boxShadow = '0 0 30px rgba(0,232,123,.08)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,232,123,.1)'
-              e.currentTarget.style.boxShadow = '0 0 80px rgba(0,232,123,.04), 0 30px 80px rgba(0,0,0,.4)'
-            }}>
-              <span style={{ fontSize: 24 }}>⚙️</span>
-              <div>
-                <div style={{ fontWeight: 600, marginBottom: 2 }}>System Settings</div>
-                <div style={{ fontSize: 12, color: 'rgba(199,214,255,.4)' }}>Account preferences and integrations</div>
-              </div>
-            </Link>
+            ))}
           </div>
         </div>
       </div>
+
+      <style>{`@media(max-width:900px){.overview-cols{grid-template-columns:1fr !important}}`}</style>
     </div>
-  );
+  )
 }
