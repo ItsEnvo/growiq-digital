@@ -56,11 +56,11 @@ export default function RootLayout({
                   <Link className="hud-nav__link" href="/docs">
                     Docs
                   </Link>
+                  <Link className="hud-nav__link" href="/book">
+                    Book a Call
+                  </Link>
                   <Link className="hud-nav__link" href="/contact?mode=audit">
                     Free Audit
-                  </Link>
-                  <Link className="hud-nav__link" href="/contact?mode=call">
-                    Book a Call
                   </Link>
                 </nav>
               </div>
