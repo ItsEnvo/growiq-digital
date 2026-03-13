@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
 
         // Create subscription record in database
         try {
-          createSubscription(clientId, plan, customerId, subscriptionId);
+          await createSubscription(clientId, plan, customerId, subscriptionId);
           console.log(`Created subscription record for client ${clientId}, plan: ${plan}`);
         } catch (error) {
           console.error('Error creating subscription record:', error);
@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
         const currentPeriodEnd = new Date(subscription.current_period_end * 1000).toISOString();
 
         try {
-          updateSubscriptionStatus(subscriptionId, status, currentPeriodEnd);
+          await updateSubscriptionStatus(subscriptionId, status, currentPeriodEnd);
           console.log(`Updated subscription ${subscriptionId} status to ${status}`);
         } catch (error) {
           console.error('Error updating subscription status:', error);
@@ -123,7 +123,7 @@ export async function POST(request: NextRequest) {
         const subscriptionId = subscription.id;
 
         try {
-          updateSubscriptionStatus(subscriptionId, 'cancelled');
+          await updateSubscriptionStatus(subscriptionId, 'cancelled');
           console.log(`Marked subscription ${subscriptionId} as cancelled`);
         } catch (error) {
           console.error('Error updating subscription status:', error);
@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
             const subscription = event.data.object.subscription;
             if (subscription) {
               // Mark setup fee as paid
-              updateSubscriptionStatus(subscriptionId, 'active', undefined, true);
+              await updateSubscriptionStatus(subscriptionId, 'active', undefined, true);
               console.log(`Payment succeeded for subscription ${subscriptionId}`);
             }
           } catch (error) {
@@ -159,7 +159,7 @@ export async function POST(request: NextRequest) {
         
         if (subscriptionId) {
           try {
-            updateSubscriptionStatus(subscriptionId, 'past_due');
+            await updateSubscriptionStatus(subscriptionId, 'past_due');
             console.log(`Payment failed for subscription ${subscriptionId}`);
             
             // TODO: Send notification to client about failed payment

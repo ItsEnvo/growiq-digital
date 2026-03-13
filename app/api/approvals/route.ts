@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status') || undefined;
 
-    const approvals = getClientApprovals(currentUser.id, status);
+    const approvals = await getClientApprovals(currentUser.id, status);
     return NextResponse.json(approvals);
   } catch (error: any) {
     console.error('Get approvals error:', error);
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       return new NextResponse('Agent type and content are required', { status: 400 });
     }
 
-    const approval = createApproval(currentUser.id, agentType, content);
+    const approval = await createApproval(currentUser.id, agentType, content);
     return NextResponse.json(approval);
   } catch (error: any) {
     console.error('Create approval error:', error);

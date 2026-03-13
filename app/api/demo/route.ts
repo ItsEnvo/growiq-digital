@@ -76,7 +76,7 @@ Best,
     // Create sample approvals
     const createdApprovals = [];
     for (const approval of sampleApprovals) {
-      const created = createApproval(currentUser.id, approval.agentType, approval.content);
+      const created = await createApproval(currentUser.id, approval.agentType, approval.content);
       createdApprovals.push(created);
     }
 
@@ -91,7 +91,7 @@ Best,
     ];
 
     for (const activity of sampleActivities) {
-      createActivity(currentUser.id, activity.agentType, activity.message);
+      await createActivity(currentUser.id, activity.agentType, activity.message);
     }
 
     return NextResponse.json({ 

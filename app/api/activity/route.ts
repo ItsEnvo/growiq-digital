@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get('limit') || '50');
 
-    const activities = getClientActivity(currentUser.id, limit);
+    const activities = await getClientActivity(currentUser.id, limit);
     return NextResponse.json(activities);
   } catch (error: any) {
     console.error('Get activity error:', error);

@@ -19,7 +19,7 @@ export async function PATCH(
     }
 
     // Verify approval belongs to current user
-    const userApprovals = getClientApprovals(currentUser.id);
+    const userApprovals = await getClientApprovals(currentUser.id);
     const approval = userApprovals.find(a => a.id === approvalId);
     
     if (!approval) {
@@ -33,11 +33,11 @@ export async function PATCH(
     }
 
     // Update approval
-    updateApproval(approvalId, status);
+    await updateApproval(approvalId, status);
 
     // Log activity
     const action = status === 'approved' ? 'approved' : 'rejected';
-    createActivity(
+    await createActivity(
       currentUser.id,
       approval.agent_type,
       `Content ${action} - ${approval.content.substring(0, 50)}${approval.content.length > 50 ? '...' : ''}`

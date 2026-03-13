@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       return new NextResponse('Step and data are required', { status: 400 });
     }
 
-    saveOnboardingStep(currentUser.id, step, data);
+    await saveOnboardingStep(currentUser.id, step, data);
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

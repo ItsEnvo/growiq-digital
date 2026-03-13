@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
       return new NextResponse('Email and password are required', { status: 400 });
     }
 
-    const authClient = loginClient(email, password);
+    const authClient = await loginClient(email, password);
     const token = generateToken(authClient);
 
     const response = NextResponse.json({ success: true });

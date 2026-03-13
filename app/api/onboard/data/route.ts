@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const onboardingData = getOnboardingData(currentUser.id);
+    const onboardingData = await getOnboardingData(currentUser.id);
     return NextResponse.json(onboardingData);
   } catch (error: any) {
     console.error('Get onboarding data error:', error);

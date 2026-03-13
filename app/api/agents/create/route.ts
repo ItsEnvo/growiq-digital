@@ -85,11 +85,11 @@ export async function POST(request: NextRequest) {
     const createdAgents = [];
     
     for (const agentType of agents) {
-      const agent = createClientAgent(currentUser.id, agentType);
+      const agent = await createClientAgent(currentUser.id, agentType);
       createdAgents.push(agent);
       
       // Create activity log
-      createActivity(
+      await createActivity(
         currentUser.id,
         agentType,
         `${agentType.charAt(0).toUpperCase() + agentType.slice(1)} has been activated and is ready to work`
@@ -98,11 +98,11 @@ export async function POST(request: NextRequest) {
 
     // Generate workspace after creating agents
     try {
-      const onboardingData = getOnboardingData(currentUser.id);
+      const onboardingData = await getOnboardingData(currentUser.id);
       const config = buildClientConfigFromOnboarding(onboardingData, currentUser, agents);
       const workspace = generateWorkspace(config);
       
-      saveWorkspace(
+      await saveWorkspace(
         currentUser.id,
         JSON.stringify(workspace),
         workspace.setupInstructions,

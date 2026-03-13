@@ -24,19 +24,19 @@ export function verifyToken(token: string): AuthClient | null {
   }
 }
 
-export function registerClient(email: string, password: string, businessName: string, industry: string): Client {
+export async function registerClient(email: string, password: string, businessName: string, industry: string): Promise<Client> {
   // Check if client already exists
-  const existingClient = getClientByEmail(email);
+  const existingClient = await getClientByEmail(email);
   if (existingClient) {
     throw new Error('Client already exists');
   }
   
   const passwordHash = hashPassword(password);
-  return createClient(email, passwordHash, businessName, industry);
+  return await createClient(email, passwordHash, businessName, industry);
 }
 
-export function loginClient(email: string, password: string): AuthClient {
-  const client = getClientByEmail(email);
+export async function loginClient(email: string, password: string): Promise<AuthClient> {
+  const client = await getClientByEmail(email);
   
   if (!client || !verifyPassword(password, client.password_hash)) {
     throw new Error('Invalid email or password');

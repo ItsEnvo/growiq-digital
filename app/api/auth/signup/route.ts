@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
       return new NextResponse('Missing required fields', { status: 400 });
     }
 
-    const client = registerClient(email, password, businessName, industry);
+    const client = await registerClient(email, password, businessName, industry);
     const authClient = toAuthClient(client);
     const token = generateToken(authClient);
 

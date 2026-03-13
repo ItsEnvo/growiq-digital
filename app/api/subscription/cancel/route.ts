@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get the user's subscription
-    const subscription = getClientSubscription(user.id);
+    const subscription = await getClientSubscription(user.id);
     
     if (!subscription || !subscription.stripe_subscription_id) {
       return NextResponse.json(

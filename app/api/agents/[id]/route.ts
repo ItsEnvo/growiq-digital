@@ -19,7 +19,7 @@ export async function PATCH(
     }
 
     // Verify agent belongs to current user
-    const userAgents = getClientAgents(currentUser.id);
+    const userAgents = await getClientAgents(currentUser.id);
     const agent = userAgents.find(a => a.id === agentId);
     
     if (!agent) {
@@ -29,7 +29,7 @@ export async function PATCH(
     const updates = await request.json();
     
     // Update agent
-    updateClientAgent(agentId, updates);
+    await updateClientAgent(agentId, updates);
 
     // Log activity
     if (updates.status) {
@@ -37,7 +37,7 @@ export async function PATCH(
         ? 'has been activated and is ready to work'
         : 'has been paused';
         
-      createActivity(
+      await createActivity(
         currentUser.id,
         agent.agent_type,
         `${agent.agent_type.charAt(0).toUpperCase() + agent.agent_type.slice(1)} ${statusMessage}`

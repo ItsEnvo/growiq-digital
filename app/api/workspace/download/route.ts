@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Check subscription status
-    const subscriptionCheck = requireSubscription(user.id);
+    const subscriptionCheck = await requireSubscription(user.id);
     if (!subscriptionCheck.allowed) {
       return NextResponse.json(
         { error: 'Active subscription required to download workspace' },
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get the client's latest workspace
-    const workspace = getLatestWorkspace(user.id);
+    const workspace = await getLatestWorkspace(user.id);
     
     if (!workspace) {
       return NextResponse.json({ error: 'No workspace found' }, { status: 404 });

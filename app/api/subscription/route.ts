@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const subscription = getClientSubscription(user.id);
+    const subscription = await getClientSubscription(user.id);
     
     if (!subscription) {
       return NextResponse.json(

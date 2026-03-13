@@ -75,13 +75,13 @@ export async function GET(request: NextRequest) {
     }
 
     const clientId = payload.clientId;
-    const client = getClientById(clientId);
+    const client = await getClientById(clientId);
     if (!client) {
       return NextResponse.json({ error: 'Client not found' }, { status: 404 });
     }
 
     // Check subscription status
-    const subscriptionCheck = requireSubscription(clientId);
+    const subscriptionCheck = await requireSubscription(clientId);
     if (!subscriptionCheck.allowed) {
       return NextResponse.json(
         { error: 'Active subscription required to download workspace' },
@@ -90,7 +90,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get the latest workspace
-    const workspace = getLatestWorkspace(clientId);
+    const workspace = await getLatestWorkspace(clientId);
     if (!workspace) {
       return NextResponse.json({ error: 'No workspace found' }, { status: 404 });
     }

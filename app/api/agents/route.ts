@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const agents = getClientAgents(currentUser.id);
+    const agents = await getClientAgents(currentUser.id);
     return NextResponse.json(agents);
   } catch (error: any) {
     console.error('Get agents error:', error);

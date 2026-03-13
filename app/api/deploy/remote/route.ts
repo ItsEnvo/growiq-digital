@@ -20,8 +20,8 @@ function slugify(text: string): string {
 const ADMIN_EMAILS = ['admin@growiqdigital.com', 'support@growiqdigital.com'];
 
 async function generateWorkspaceZip(clientId: number): Promise<Buffer> {
-  const workspace = getLatestWorkspace(clientId);
-  const client = getClientById(clientId);
+  const workspace = await getLatestWorkspace(clientId);
+  const client = await getClientById(clientId);
   
   if (!workspace || !client) {
     throw new Error('Workspace or client not found');
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     }
 
     const clientId = payload.clientId;
-    const client = getClientById(clientId);
+    const client = await getClientById(clientId);
     if (!client) {
       return NextResponse.json({ error: 'Client not found' }, { status: 404 });
     }
@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get workspace
-    const workspace = getLatestWorkspace(clientId);
+    const workspace = await getLatestWorkspace(clientId);
     if (!workspace) {
       return NextResponse.json({ error: 'No workspace found' }, { status: 404 });
     }

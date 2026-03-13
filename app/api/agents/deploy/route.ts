@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check subscription status
-    const subscriptionCheck = requireSubscription(user.id);
+    const subscriptionCheck = await requireSubscription(user.id);
     if (!subscriptionCheck.allowed) {
       return NextResponse.json(
         { error: 'Active subscription required to deploy agents' },
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get the client's onboarding data
-    const onboardingData = getOnboardingData(user.id);
+    const onboardingData = await getOnboardingData(user.id);
     
     if (onboardingData.length === 0) {
       return NextResponse.json({ error: 'No onboarding data found' }, { status: 404 });
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     const workspace = generateWorkspace(config);
 
     // Save to database
-    const savedWorkspace = saveWorkspace(
+    const savedWorkspace = await saveWorkspace(
       user.id,
       JSON.stringify(workspace),
       workspace.setupInstructions,
