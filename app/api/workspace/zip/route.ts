@@ -62,7 +62,7 @@ Your AI team will be ready to assist your business!
 export async function GET(request: NextRequest) {
   try {
     // Verify JWT token
-    const token = request.cookies.get('token')?.value;
+    const token = request.cookies.get('token')?.value || request.cookies.get('auth-token')?.value;
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
