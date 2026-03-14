@@ -71,7 +71,7 @@ async function generateWorkspaceZip(clientId: number): Promise<Buffer> {
 export async function POST(request: NextRequest) {
   try {
     // Verify JWT token
-    const token = request.cookies.get('token') || request.cookies.get('auth-token')?.value;
+    const token = request.cookies.get('token')?.value || request.cookies.get('auth-token')?.value;
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
