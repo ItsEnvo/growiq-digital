@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    const clientId = payload.clientId;
+    const clientId = payload.clientId || payload.id;
     const client = await getClientById(clientId);
     if (!client) {
       return NextResponse.json({ error: 'Client not found' }, { status: 404 });
