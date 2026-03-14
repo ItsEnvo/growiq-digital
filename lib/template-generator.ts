@@ -34,56 +34,76 @@ export interface GeneratedWorkspace {
 }
 
 // Agent metadata for the 10 GrowIQ agents
-const AGENT_METADATA: Record<string, { name: string; role: string; channels: string[] }> = {
+const AGENT_METADATA: Record<string, { name: string; role: string; emoji: string; channels: string[]; plan: 'growth' | 'scale' }> = {
   iris: {
     name: 'IRIS',
-    role: 'Intelligent Reception & Intake System',
-    channels: ['telegram', 'sms']
+    role: 'AI Receptionist — answers inquiries, books appointments',
+    emoji: '🎙️',
+    channels: ['telegram', 'sms'],
+    plan: 'growth'
   },
   atlas: {
     name: 'ATLAS',
-    role: 'Advanced Territory Lead & Acquisition System',
-    channels: ['telegram', 'email']
+    role: 'Sales Follow-Up — nurtures leads, handles objections, closes deals',
+    emoji: '🎯',
+    channels: ['telegram', 'sms'],
+    plan: 'growth'
   },
   pulse: {
     name: 'PULSE',
-    role: 'Personalized Upselling & Loyalty System Enhancement',
-    channels: ['telegram', 'email', 'sms']
+    role: 'Daily Briefing — morning business summary and alerts',
+    emoji: '📊',
+    channels: ['telegram'],
+    plan: 'growth'
   },
   sync: {
     name: 'SYNC',
-    role: 'System Yield & Nurturing Coordinator',
-    channels: ['telegram', 'email']
-  },
-  aegis: {
-    name: 'AEGIS',
-    role: 'Automated Engagement & Growth Intelligence System',
-    channels: ['telegram', 'social']
-  },
-  prism: {
-    name: 'PRISM',
-    role: 'Personalized Retention & Intelligence System Manager',
-    channels: ['telegram', 'email', 'crm']
-  },
-  muse: {
-    name: 'MUSE',
-    role: 'Multimedia Universal Social Engagement',
-    channels: ['telegram', 'social', 'content']
+    role: 'Scheduling — calendar management, reminders, no-show prevention',
+    emoji: '📅',
+    channels: ['telegram'],
+    plan: 'growth'
   },
   wave: {
     name: 'WAVE',
-    role: 'Web Analytics & Visitor Engagement',
-    channels: ['telegram', 'web', 'analytics']
+    role: 'Social Media — content creation, scheduling, platform management',
+    emoji: '🌊',
+    channels: ['telegram'],
+    plan: 'growth'
   },
   radar: {
     name: 'RADAR',
-    role: 'Review Analytics & Digital Reputation',
-    channels: ['telegram', 'review', 'social']
+    role: 'Reputation — review monitoring, feedback requests, response management',
+    emoji: '📡',
+    channels: ['telegram'],
+    plan: 'growth'
+  },
+  aegis: {
+    name: 'AEGIS',
+    role: 'Security & Systems — agent health monitoring, access management',
+    emoji: '🛡️',
+    channels: ['telegram'],
+    plan: 'scale'
+  },
+  prism: {
+    name: 'PRISM',
+    role: 'Personal Assistant — task management, drafting, organization',
+    emoji: '💎',
+    channels: ['telegram'],
+    plan: 'scale'
+  },
+  muse: {
+    name: 'MUSE',
+    role: 'Content Creator — graphics, copy, visual content, brand assets',
+    emoji: '🎨',
+    channels: ['telegram'],
+    plan: 'scale'
   },
   scout: {
     name: 'SCOUT',
-    role: 'Social Communication & Online Unified Tracking',
-    channels: ['telegram', 'social', 'monitoring']
+    role: 'Analytics & Optimization — KPI tracking, performance insights',
+    emoji: '🔍',
+    channels: ['telegram'],
+    plan: 'scale'
   }
 };
 
@@ -126,13 +146,18 @@ export function generateWorkspace(config: ClientConfig): GeneratedWorkspace {
 
 function generateAgentFiles(agentId: string, config: ClientConfig): Array<{ path: string; content: string }> {
   const templateDir = path.join(process.cwd(), 'lib/agent-templates', agentId);
+  // Also check templates/agents/ as fallback
+  const altTemplateDir = path.join(process.cwd(), 'templates/agents', agentId);
   const files: Array<{ path: string; content: string }> = [];
   
   // Standard agent files
-  const agentFiles = ['SOUL.md', 'AGENTS.md', 'KNOWLEDGE.md', 'IDENTITY.md'];
+  const agentFiles = ['SOUL.md', 'AGENTS.md'];
   
   for (const fileName of agentFiles) {
-    const filePath = path.join(templateDir, fileName);
+    let filePath = path.join(templateDir, fileName);
+    if (!fs.existsSync(filePath)) {
+      filePath = path.join(altTemplateDir, fileName);
+    }
     
     if (fs.existsSync(filePath)) {
       const templateContent = fs.readFileSync(filePath, 'utf8');
@@ -144,6 +169,48 @@ function generateAgentFiles(agentId: string, config: ClientConfig): Array<{ path
       });
     }
   }
+  
+  // Generate KNOWLEDGE.md from shared template
+  const knowledgeTemplatePath = path.join(process.cwd(), 'templates/KNOWLEDGE-TEMPLATE.md');
+  if (fs.existsSync(knowledgeTemplatePath)) {
+    const knowledgeTemplate = fs.readFileSync(knowledgeTemplatePath, 'utf8');
+    const metadata = AGENT_METADATA[agentId];
+    const processedKnowledge = replacePlaceholders(
+      knowledgeTemplate.replace(/\{\{AGENT_NAME\}\}/g, metadata?.name || agentId.toUpperCase()),
+      config
+    );
+    files.push({
+      path: `workspaces/${agentId}/KNOWLEDGE.md`,
+      content: processedKnowledge
+    });
+  }
+  
+  // Generate IDENTITY.md
+  const metadata = AGENT_METADATA[agentId];
+  const identityContent = `# IDENTITY.md — ${metadata?.name || agentId.toUpperCase()}
+
+- **Name:** ${metadata?.name || agentId.toUpperCase()}
+- **Role:** ${metadata?.role || 'AI Agent'}
+- **Business:** ${config.businessName}
+- **Industry:** ${config.industry}
+- **Created:** ${new Date().toISOString().split('T')[0]}
+`;
+  files.push({
+    path: `workspaces/${agentId}/IDENTITY.md`,
+    content: identityContent
+  });
+
+  // Generate MEMORY.md
+  files.push({
+    path: `workspaces/${agentId}/MEMORY.md`,
+    content: `# MEMORY.md — ${metadata?.name || agentId.toUpperCase()}
+
+## Setup
+- Deployed for ${config.businessName} on ${new Date().toISOString().split('T')[0]}
+- Industry: ${config.industry}
+- Owner: ${config.ownerName}
+`
+  });
   
   return files;
 }
@@ -269,26 +336,59 @@ function generateOpenClawConfig(config: ClientConfig): object {
 }
 
 function replacePlaceholders(content: string, config: ClientConfig): string {
+  // Map of all placeholder variants (UPPER_CASE and camelCase) to values
+  const replacements: Record<string, string> = {
+    // Business info
+    'BUSINESS_NAME': config.businessName,
+    'businessName': config.businessName,
+    'INDUSTRY': config.industry,
+    'industry': config.industry,
+    'OWNER_NAME': config.ownerName,
+    'ownerName': config.ownerName,
+    'WEBSITE': config.website || 'Not configured',
+    'website': config.website || 'Not configured',
+    'PHONE': config.phone || 'Not configured',
+    'phone': config.phone || 'Not configured',
+    'ADDRESS': config.address || 'Not configured',
+    'address': config.address || 'Not configured',
+    'EMAIL': config.phone || 'Not configured', // fallback
+    'BUSINESS_HOURS': config.businessHours || 'Not configured',
+    'businessHours': config.businessHours || 'Not configured',
+    'TIMEZONE': config.timezone,
+    'timezone': config.timezone,
+    'TONE': config.brandTone,
+    'brandTone': config.brandTone,
+    
+    // Links
+    'REVIEW_LINK': config.googleReviewLink || 'Not configured',
+    'googleReviewLink': config.googleReviewLink || 'Not configured',
+    'BOOKING_LINK': config.bookingLink || 'Not configured',
+    'bookingLink': config.bookingLink || 'Not configured',
+    'CONTACT': config.phone || config.website || 'Not configured',
+    'googleAdsId': config.googleAdsId || 'Not configured',
+    'monthlyAdBudget': config.monthlyAdBudget || 'Not configured',
+    
+    // Content lists
+    'SERVICES_LIST': formatServicesList(config.services),
+    'servicesList': formatServicesList(config.services),
+    'FAQ_ITEMS': formatFaqItems(config.faqItems),
+    'faqItems': formatFaqItems(config.faqItems),
+    
+    // Defaults for optional fields
+    'BRIEFING_TIME': '8:00 AM',
+    'BUFFER_MINUTES': '15',
+    'TARGET_AUDIENCE': `Customers interested in ${config.industry} services`,
+    'PLATFORMS_LIST': 'Instagram, Facebook, Google Business',
+    'INDUSTRY_PLATFORMS': 'Google Reviews, Yelp',
+    'BRAND_COLORS': 'To be configured during setup',
+    'BRAND_FONTS': 'To be configured during setup',
+    'VISUAL_STYLE': 'Professional and clean',
+  };
+
   let result = content;
-  
-  // Basic replacements
-  result = result.replace(/\{\{businessName\}\}/g, config.businessName);
-  result = result.replace(/\{\{industry\}\}/g, config.industry);
-  result = result.replace(/\{\{ownerName\}\}/g, config.ownerName);
-  result = result.replace(/\{\{website\}\}/g, config.website || 'Not configured');
-  result = result.replace(/\{\{phone\}\}/g, config.phone || 'Not configured');
-  result = result.replace(/\{\{address\}\}/g, config.address || 'Not configured');
-  result = result.replace(/\{\{businessHours\}\}/g, config.businessHours || 'Not configured');
-  result = result.replace(/\{\{timezone\}\}/g, config.timezone);
-  result = result.replace(/\{\{brandTone\}\}/g, config.brandTone);
-  result = result.replace(/\{\{googleReviewLink\}\}/g, config.googleReviewLink || 'Not configured');
-  result = result.replace(/\{\{bookingLink\}\}/g, config.bookingLink || 'Not configured');
-  result = result.replace(/\{\{googleAdsId\}\}/g, config.googleAdsId || 'Not configured');
-  result = result.replace(/\{\{monthlyAdBudget\}\}/g, config.monthlyAdBudget || 'Not configured');
-  
-  // Complex replacements
-  result = result.replace(/\{\{servicesList\}\}/g, formatServicesList(config.services));
-  result = result.replace(/\{\{faqItems\}\}/g, formatFaqItems(config.faqItems));
+  for (const [key, value] of Object.entries(replacements)) {
+    result = result.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), value);
+  }
   
   return result;
 }
