@@ -116,18 +116,27 @@ export async function GET(request: NextRequest) {
       throw new Error('Failed to create workspaces folder');
     }
 
-    // Add each agent's workspace
+    // Add each agent's workspace using the generated files
     for (const agent of workspaceData.agents) {
       const agentFolder = workspacesFolder.folder(agent.id);
       if (!agentFolder) continue;
 
-      // Create agent files
-      agentFolder.file('SOUL.md', agent.soul || `# ${agent.name}\n\n${agent.role}\n\nI am ${agent.name}, your dedicated ${agent.role.toLowerCase()}. I'm here to help ${businessName} with ${agent.description || 'various tasks'}.`);
-      agentFolder.file('AGENTS.md', workspaceData.agentsTemplate || '# Agent Operating Rules\n\nFollow the company guidelines and assist customers professionally.');
-      agentFolder.file('KNOWLEDGE.md', agent.knowledge || `# ${agent.name} Knowledge Base\n\n## About ${businessName}\n\nIndustry: ${client.industry}\n\n## My Role\n${agent.role}\n\n## Guidelines\n- Always be helpful and professional\n- Focus on ${businessName}'s needs\n- Escalate complex issues appropriately`);
-      agentFolder.file('IDENTITY.md', agent.identity || `# ${agent.name} Identity\n\nI am ${agent.name}, a specialized AI agent for ${businessName}.\n\n## Personality\n- Professional but friendly\n- Knowledgeable about ${client.industry}\n- Focused on customer success\n\n## Communication Style\n- Clear and concise\n- Helpful and solution-oriented\n- Appropriate for business context`);
-      agentFolder.file('USER.md', agent.userConfig || `# User Configuration\n\nPrimary user: ${businessName}\nIndustry: ${client.industry}\nAgent role: ${agent.role}`);
-      agentFolder.file('MEMORY.md', agent.memory || `# Agent Memory\n\nInitial setup for ${agent.name} at ${businessName}.\n\n## Setup Date\n${new Date().toISOString()}\n\n## Configuration\n- Business: ${businessName}\n- Industry: ${client.industry}\n- Role: ${agent.role}`);
+      // Use the generated files from template-generator if available
+      if (agent.files && Array.isArray(agent.files)) {
+        for (const file of agent.files) {
+          // file.path is like "workspaces/iris/SOUL.md" — extract just the filename
+          const fileName = file.path.split('/').pop() || file.path;
+          agentFolder.file(fileName, file.content);
+        }
+      } else {
+        // Fallback for old workspaces without files array
+        agentFolder.file('SOUL.md', agent.soul || `# ${agent.name}\n\n${agent.role}`);
+        agentFolder.file('AGENTS.md', workspaceData.agentsTemplate || '# Agent Operating Rules');
+        agentFolder.file('KNOWLEDGE.md', agent.knowledge || `# ${agent.name} Knowledge Base`);
+        agentFolder.file('IDENTITY.md', agent.identity || `# ${agent.name} Identity`);
+        agentFolder.file('USER.md', agent.userConfig || `# User Configuration`);
+        agentFolder.file('MEMORY.md', agent.memory || `# Agent Memory`);
+      }
     }
 
     // Add openclaw.json (with placeholder bot tokens)

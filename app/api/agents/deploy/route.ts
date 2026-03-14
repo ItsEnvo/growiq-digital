@@ -105,7 +105,11 @@ function buildClientConfigFromOnboarding(onboardingData: any[], user: any): Clie
         if (data.services) config.services = data.services;
         break;
         
-      case 5: // FAQ
+      case 5: // Brand voice + FAQ
+        if (data.ownerName) config.ownerName = data.ownerName;
+        if (data.businessHours) config.businessHours = data.businessHours;
+        if (data.timezone) config.timezone = data.timezone;
+        if (data.tone) config.brandTone = data.tone;
         if (data.faqItems) config.faqItems = data.faqItems;
         break;
     }
