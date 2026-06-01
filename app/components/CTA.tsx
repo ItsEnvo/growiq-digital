@@ -1,40 +1,47 @@
 'use client'
 
 import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 export default function CTA() {
   return (
     <section id="cta" style={{ padding: '120px 24px', position: 'relative' }}>
-      {/* Ambient glow */}
       <div style={{
         position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
         width: 600, height: 400, borderRadius: '50%', pointerEvents: 'none',
         background: 'radial-gradient(circle, rgba(0,232,123,.06) 0%, rgba(0,180,216,.03) 40%, transparent 70%)',
       }} />
 
-      <div style={{ maxWidth: 650, margin: '0 auto', textAlign: 'center' as const, position: 'relative', zIndex: 2 }}>
-        <h2 className="serif" style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 800, marginBottom: 16 }}>
-          Ready to <span className="gradient-text">Grow?</span>
+      <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' as const, position: 'relative', zIndex: 2 }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(30px, 5vw, 46px)', fontWeight: 800, marginBottom: 16, lineHeight: 1.15 }}>
+          Build the foundation your <span className="gradient-text">business deserves.</span>
         </h2>
-        <p style={{ fontSize: 16, color: 'rgba(199,214,255,.5)', marginBottom: 40, lineHeight: 1.8 }}>
-          Book a free strategy call. We'll audit your current setup, identify quick wins, and show you exactly how GrowIQ can grow your business.
+        <p style={{ fontSize: 16, color: 'rgba(199,214,255,.55)', marginBottom: 36, lineHeight: 1.8 }}>
+          A 20-minute discovery call. We look at where you are, what needs to be built, and whether GrowIQ is the right partner. No pitch.
         </p>
 
-        <button style={{
-          padding: '18px 40px', borderRadius: 14, fontSize: 16, fontWeight: 800, color: '#fff',
-          background: 'linear-gradient(135deg, rgba(0,232,123,.15), rgba(0,180,216,.15))',
-          border: '1px solid rgba(0,232,123,.4)',
-          boxShadow: '0 0 40px rgba(0,232,123,.15), 0 0 80px rgba(0,180,216,.08)',
-          display: 'inline-flex', alignItems: 'center', gap: 10, transition: 'all .3s',
-        }}
-        onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 60px rgba(0,232,123,.3), 0 0 120px rgba(0,180,216,.15)'; e.currentTarget.style.borderColor = 'rgba(0,232,123,.6)' }}
-        onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 0 40px rgba(0,232,123,.15), 0 0 80px rgba(0,180,216,.08)'; e.currentTarget.style.borderColor = 'rgba(0,232,123,.4)' }}
-        >
-          Book Your Free Strategy Call <ArrowRight size={18} />
-        </button>
+        <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: 12, justifyContent: 'center' }}>
+          <Link href="/contact?mode=call" style={{
+            padding: '17px 32px', borderRadius: 14, fontSize: 15, fontWeight: 800, color: '#fff',
+            background: 'linear-gradient(135deg, rgba(0,232,123,.15), rgba(0,180,216,.15))',
+            border: '1px solid rgba(0,232,123,.4)',
+            boxShadow: '0 0 40px rgba(0,232,123,.15), 0 0 80px rgba(0,180,216,.08)',
+            display: 'inline-flex', alignItems: 'center', gap: 10, textDecoration: 'none',
+          }}>
+            Book a discovery call <ArrowRight size={17} />
+          </Link>
+          <Link href="/pricing" style={{
+            padding: '17px 32px', borderRadius: 14, fontSize: 15, fontWeight: 700, color: 'rgba(199,214,255,.85)',
+            background: 'rgba(255,255,255,.02)',
+            border: '1px solid rgba(255,255,255,.08)',
+            display: 'inline-flex', alignItems: 'center', gap: 10, textDecoration: 'none',
+          }}>
+            See pricing
+          </Link>
+        </div>
 
-        <p style={{ marginTop: 20, fontSize: 12, color: 'rgba(199,214,255,.25)' }}>
-          No commitment. No pitch. Just clarity.
+        <p style={{ marginTop: 24, fontSize: 12, color: 'rgba(199,214,255,.3)' }}>
+          Foundation engagements start at $3,500. Retainers from $500/mo.
         </p>
       </div>
     </section>

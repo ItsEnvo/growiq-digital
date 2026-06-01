@@ -14,7 +14,7 @@ export default function Results() {
             Why It Works
           </div>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, marginBottom: 12 }}>
-            Your AI Team vs. <span className="gradient-text">The Old Way</span>
+            The old stack vs. <span className="gradient-text">a real foundation.</span>
           </h2>
         </div>
 
@@ -44,7 +44,7 @@ export default function Results() {
             { label: 'Follow-Up Rate', old: '~30%', new: '100%' },
             { label: 'Missed Calls', old: '30-50%', new: '0%' },
             { label: 'Training Time', old: '2-4 weeks', new: 'Same day' },
-            { label: 'Monthly Cost', old: '$12K+ (salaries)', new: 'From $2,500' },
+            { label: 'Monthly Cost', old: '$12K+ (salaries)', new: 'From $500/mo' },
             { label: 'Scalability', old: 'Hire more people', new: 'Instant' },
             { label: 'Consistency', old: 'Varies by person', new: 'Perfect every time' },
           ].map((row, i) => (
@@ -59,15 +59,14 @@ export default function Results() {
           ))}
         </div>
 
-        {/* Guarantee */}
         <div style={{
           marginTop: 40, padding: '28px 32px', borderRadius: 20,
-          border: '1px solid rgba(0,232,123,.15)',
+          border: '1px solid rgba(0,232,123,.12)',
           background: 'linear-gradient(135deg, rgba(0,232,123,.04), rgba(0,180,216,.03))',
           textAlign: 'center' as const,
         }}>
-          <p style={{ fontSize: 15, color: 'rgba(199,214,255,.65)', margin: 0, lineHeight: 1.8 }}>
-            <strong style={{ color: '#fff' }}>Performance Guarantee:</strong> If we don't deliver a minimum number of booked appointments in your first month, the next month is free. We only win when you win.
+          <p style={{ fontSize: 15, color: 'rgba(199,214,255,.7)', margin: 0, lineHeight: 1.8 }}>
+            <strong style={{ color: '#fff' }}>Honest standard:</strong> we ship a working foundation, hand over every account, and stay around on a retainer only if it earns its keep month over month.
           </p>
         </div>
       </div>

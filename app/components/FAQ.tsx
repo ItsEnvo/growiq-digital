@@ -4,13 +4,13 @@ import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 
 const faqs = [
-  { q: 'What industries do you work with?', a: 'We specialize in local service businesses — med spas, dental, HVAC, legal, real estate, auto, fitness, roofing, and more. If you book appointments or generate leads, we can help.' },
-  { q: 'How quickly can we get started?', a: 'Most clients are fully launched within 5-7 business days. That includes ad campaigns, website, CRM setup, and AI agents — all configured and live.' },
-  { q: 'Do I need to be tech-savvy?', a: 'Not at all. We handle everything. You get a simple dashboard to see your results, and we manage all the technical work behind the scenes.' },
-  { q: 'What if it doesn\'t work?', a: 'We offer a performance guarantee. If we don\'t deliver a minimum number of booked appointments in your first month, the next month is free. We only win when you win.' },
-  { q: 'How are the AI agents different from a chatbot?', a: 'Our agents are managed specialists, not generic chatbots. They\'re trained on your specific business, offer, and brand voice. They handle calls, texts, and emails — not just web chat. And we monitor and optimize them continuously.' },
-  { q: 'Can I cancel anytime?', a: 'Yes. Month-to-month, no long-term contracts. We earn your business every month.' },
-  { q: 'What about ad spend?', a: 'Ad spend is separate and paid directly to Google. We recommend starting at $1,500-$3,000/month depending on your market and goals. We manage the campaigns — you control the budget.' },
+  { q: 'Who is GrowIQ for?', a: 'Small to medium-sized businesses that already have revenue and need a real digital foundation — better websites, dashboards, systems, and AI. We work horizontally across industries; we are not a single-vertical agency.' },
+  { q: 'What does the Foundation include?', a: 'A premium custom website, an admin dashboard, lead capture and inquiry routing, Google Workspace setup, domain, DNS, hosting, business infrastructure, and 30 days of post-launch support. Starting at $3,500.' },
+  { q: 'How long does it take?', a: 'Most Foundations are live within 5 to 7 business days. AI Systems are scoped per build and shipped in parallel or as a follow-on engagement.' },
+  { q: 'What are the retainers for?', a: 'Foundation Care ($500/mo) covers hosting, maintenance, updates, and standard support. Growth Partner ($1,500/mo) adds AI optimization, dashboard improvements, strategy support, and priority response.' },
+  { q: 'What counts as a custom AI system?', a: 'A custom AI system is an AI employee or workflow built specifically for your business — sales assistants, content engines, support assistants, executive assistants, operations agents, knowledge bases, and more. Scoped and priced per build.' },
+  { q: 'Do I have to be technical?', a: 'No. The foundation is built, configured, and handed over. The dashboard is designed for the owner, not the developer. We handle the underlying work.' },
+  { q: 'Can I cancel anytime?', a: 'Retainers are month to month. No long-term contracts. The Foundation is a one-time engagement and the work, accounts, and assets stay with you.' },
 ]
 
 export default function FAQ() {

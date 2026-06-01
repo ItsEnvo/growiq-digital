@@ -1,22 +1,22 @@
 import Navigation from '../components/Navigation'
-import Services from '../components/Services'
+import Pricing from '../components/Pricing'
 import CTA from '../components/CTA'
 import Footer from '../components/Footer'
 import Particles from '../components/Particles'
 
 export const metadata = {
-  title: 'Services — GrowIQ',
+  title: 'Pricing — GrowIQ',
   description:
-    'Digital Infrastructure, Premium Websites, Business Dashboards, and Custom AI Systems. The complete digital foundation for modern businesses.',
+    'Foundation starting at $3,500. Foundation Care from $500/mo. Growth Partner from $1,500/mo. Custom AI Systems scoped per business.',
 }
 
-export default function ServicesPage() {
+export default function PricingPage() {
   return (
     <>
       <Particles />
       <Navigation />
       <main style={{ paddingTop: 80 }}>
-        <Services />
+        <Pricing />
       </main>
       <CTA />
       <Footer />

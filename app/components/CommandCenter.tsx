@@ -79,7 +79,7 @@ export default function CommandCenter() {
                   { agent: 'IRIS', color: '#00e87b', text: 'Answered call — new patient inquiry from Google Ads', time: '12s ago' },
                   { agent: 'ATLAS', color: '#00b4d8', text: 'Lead #308 engaged — sent personalized treatment offer', time: '2m ago' },
                   { agent: 'PULSE', color: '#f59e0b', text: 'No-show recovery — Maria K. rebooked for Friday', time: '5m ago' },
-                  { agent: 'PRISM', color: '#ef4444', text: 'Review secured — James P. left 5★ on Google', time: '8m ago' },
+                  { agent: 'PRISM', color: '#ef4444', text: 'Review secured — James P. left 5-star on Google', time: '8m ago' },
                   { agent: 'MUSE', color: '#f472b6', text: 'New post designed — "Spring Special" promo graphic', time: '11m ago' },
                   { agent: 'WAVE', color: '#818cf8', text: 'Published to Instagram + Google Business', time: '12m ago' },
                   { agent: 'SYNC', color: '#a855f7', text: 'Reminder sent — 3 appointments tomorrow', time: '15m ago' },
