@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRight, Headphones, Briefcase, RefreshCw, Calendar, Shield, Star, Palette, Share2, BarChart3, type LucideIcon } from 'lucide-react'
+import { ArrowRight, Headphones, Briefcase, RefreshCw, Calendar, Shield, Star, Palette, Share2, BarChart3, Telescope, type LucideIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
@@ -23,6 +23,7 @@ const agents: HeroAgent[] = [
   { Icon: Palette,    name: 'MUSE',  role: 'Content',    status: 'Designing post',         detail: 'Spring promo graphic — ready for approval',  color: '#f472b6' },
   { Icon: Share2,     name: 'WAVE',  role: 'Social',     status: 'Posting to Instagram',   detail: '4 posts scheduled — 2 published',            color: '#818cf8' },
   { Icon: BarChart3,  name: 'RADAR', role: 'Intel',      status: 'Compiling report',       detail: '42 leads · 28 booked · $31K influenced',     color: '#22c55e' },
+  { Icon: Telescope,  name: 'SCOUT', role: 'Research',   status: 'Surfacing opportunity',  detail: 'New lead source identified — competitor gap',color: '#fbbf24' },
 ]
 
 function getPos(i: number, count: number, radius: number, center: number) {

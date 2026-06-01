@@ -2,7 +2,7 @@
 
 import {
   Headphones, Briefcase, RefreshCw, Calendar, Shield, Star,
-  Palette, Share2, BarChart3,
+  Palette, Share2, BarChart3, Telescope,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -115,6 +115,13 @@ const tiers: Tier[] = [
         desc: 'Daily briefings. Weekly reports. Source attribution. Agent performance scoring. Anomaly alerts when something is off. You always know what is working.',
         channels: ['Dashboard', 'SMS Alerts', 'Email'],
       },
+      {
+        Icon: Telescope, name: 'SCOUT', fullName: 'Strategic Competitive & Opportunity Unit',
+        color: '#fbbf24', rgb: '251,191,36',
+        role: 'Research & lead discovery',
+        desc: 'Research, intelligence gathering, lead discovery, competitive analysis, opportunity identification. Watches the market so you do not have to.',
+        channels: ['Dashboard', 'Email Digest'],
+      },
     ],
   },
 ]
@@ -133,7 +140,7 @@ export default function AIAgents() {
             The Agent Roster
           </div>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, marginBottom: 12 }}>
-            Nine specialists. <span className="gradient-text">One business.</span>
+            Ten specialists. <span className="gradient-text">One business.</span>
           </h2>
           <p style={{ fontSize: 15, color: 'rgba(199,214,255,.45)', maxWidth: 560, margin: '0 auto', lineHeight: 1.8 }}>
             Each agent is a specialist — trained on your services, your voice, and your rules. Deploy the ones you need. Skip the ones you do not.

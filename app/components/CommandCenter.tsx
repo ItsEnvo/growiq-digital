@@ -43,7 +43,7 @@ export default function CommandCenter() {
               <span style={{ fontSize: 11, color: 'rgba(199,214,255,.3)', marginLeft: 8 }}>command-center.growiq.ai</span>
             </div>
             <span style={{ fontSize: 10, fontWeight: 700, color: '#22c55e', display: 'flex', alignItems: 'center', gap: 4 }}>
-              <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#22c55e' }} /> 9 Agents Online
+              <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#22c55e' }} /> 10 Agents Online
             </span>
           </div>
 
