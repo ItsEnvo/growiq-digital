@@ -3,61 +3,159 @@
 import { Check, ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-const plans = [
+type Plan = {
+  name: string
+  kind: 'engagement' | 'retainer'
+  price: string
+  priceNote: string
+  desc: string
+  features: string[]
+  cta: string
+  ctaHref: string
+  flagship?: boolean
+}
+
+const engagements: Plan[] = [
   {
-    name: 'Growth',
-    price: '$2,500',
-    setup: '$2,500 setup',
-    period: '/mo',
-    desc: 'Essential AI infrastructure for businesses ready to stop missing leads.',
-    agents: '6 AI Agents',
-    agentList: 'IRIS · ATLAS · PULSE · SYNC · WAVE · RADAR',
+    name: 'Foundation',
+    kind: 'engagement',
+    price: '$3,500',
+    priceNote: 'starting',
+    desc: 'The complete digital foundation. Premium website, admin dashboard, lead capture, and the infrastructure to run on top of.',
     features: [
-      '6 AI agents (Reception, Sales, Follow-Up, Scheduling, Social Publishing, Reporting)',
-      'Command Center dashboard access',
-      'Landing page build',
-      'Google Ads setup & management',
-      'CRM pipeline configuration',
-      'Automated booking flow',
-      'Social media scheduling & publishing',
-      'Daily briefings + weekly reports',
-      'Email support',
+      'Premium luxury website',
+      'Lead capture and inquiry routing',
+      'Admin dashboard',
+      'Google Workspace setup',
+      'Domain, DNS, and hosting',
+      'Business infrastructure setup',
+      '30 days of post-launch support',
     ],
-    flagship: false,
+    cta: 'Start a Foundation',
+    ctaHref: '/contact?mode=foundation',
+    flagship: true,
   },
   {
-    name: 'Scale',
-    price: '$4,500',
-    setup: '$3,500 setup',
-    period: '/mo',
-    desc: 'The full AI workforce. Every agent, every system, fully managed.',
-    agents: 'All 10 AI Agents',
-    agentList: 'IRIS · ATLAS · PULSE · SYNC · AEGIS · PRISM · MUSE · WAVE · RADAR · SCOUT',
+    name: 'Custom AI Systems',
+    kind: 'engagement',
+    price: 'Custom',
+    priceNote: 'scoped per business',
+    desc: 'Custom AI employees and business systems, built to the way your company actually works.',
     features: [
-      'All 10 AI agents deployed',
-      'Full Command Center with all dashboards',
-      'Full website design & build',
-      'Branded content creation (MUSE)',
-      'Social media management across all platforms',
-      'Advanced Google Ads + SCOUT optimization',
-      'Complete CRM & pipeline automation',
-      'Multi-channel (phone, SMS, email, chat, social)',
-      'Call transcripts & conversation history',
-      'Agent retraining as your business evolves',
-      'Monthly strategy call',
-      'Slack/Telegram direct access',
-      'Priority support',
+      'AI Sales Assistant',
+      'AI Content Engine',
+      'AI Support Assistant',
+      'AI Executive Assistant',
+      'AI Operations Manager',
+      'And more — scoped to your workflow',
     ],
-    flagship: true,
+    cta: 'Scope an AI System',
+    ctaHref: '/contact?mode=ai-systems',
   },
 ]
 
+const retainers: Plan[] = [
+  {
+    name: 'Foundation Care',
+    kind: 'retainer',
+    price: '$500',
+    priceNote: '/mo',
+    desc: 'Hands-off operations for your live foundation. Hosting, updates, and support handled for you.',
+    features: [
+      'Hosting and infrastructure',
+      'Maintenance and updates',
+      'Email and standard support',
+      'Monthly status check-in',
+    ],
+    cta: 'Add Foundation Care',
+    ctaHref: '/contact?mode=foundation-care',
+  },
+  {
+    name: 'Growth Partner',
+    kind: 'retainer',
+    price: '$1,500',
+    priceNote: '/mo',
+    desc: 'Everything in Foundation Care, plus a partner working on the business with you each month.',
+    features: [
+      'Everything in Foundation Care',
+      'AI optimization and tuning',
+      'Dashboard improvements',
+      'Strategy support',
+      'Priority support',
+    ],
+    cta: 'Become a Growth Partner',
+    ctaHref: '/contact?mode=growth-partner',
+  },
+]
+
+function PlanCard({ plan, onCta }: { plan: Plan; onCta: (p: Plan) => void }) {
+  const accent = plan.flagship
+  return (
+    <div style={{
+      position: 'relative', borderRadius: 24, padding: 32,
+      background: 'linear-gradient(180deg, rgba(10,16,38,.7), rgba(5,8,16,.5))',
+      border: accent ? '1px solid rgba(0,232,123,.2)' : '1px solid rgba(255,255,255,.06)',
+      boxShadow: accent ? '0 0 50px rgba(0,232,123,.06), 0 0 100px rgba(0,180,216,.03)' : 'none',
+      backdropFilter: 'blur(20px)',
+      display: 'flex', flexDirection: 'column' as const,
+    }}>
+      {accent && (
+        <div style={{
+          position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
+          padding: '5px 18px', borderRadius: 99, fontSize: 10, fontWeight: 900,
+          letterSpacing: '.15em', textTransform: 'uppercase' as const,
+          background: 'linear-gradient(135deg, #00e87b, #00b4d8)', color: '#fff',
+          boxShadow: '0 0 20px rgba(0,232,123,.3)',
+        }}>
+          Start Here
+        </div>
+      )}
+
+      <div style={{
+        fontSize: 10, fontWeight: 800, letterSpacing: '.18em',
+        color: 'rgba(199,214,255,.35)', textTransform: 'uppercase' as const, marginBottom: 10,
+      }}>
+        {plan.kind === 'engagement' ? 'Engagement' : 'Retainer'}
+      </div>
+      <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 8 }}>{plan.name}</h3>
+      <p style={{ fontSize: 13, color: 'rgba(199,214,255,.5)', lineHeight: 1.7, marginBottom: 22 }}>{plan.desc}</p>
+
+      <div style={{ marginBottom: 4 }}>
+        <span style={{ fontSize: 38, fontWeight: 900, color: '#fff' }}>{plan.price}</span>
+        <span style={{ fontSize: 14, color: 'rgba(199,214,255,.4)', marginLeft: 6 }}>{plan.priceNote}</span>
+      </div>
+      <div style={{ height: 1, background: 'rgba(255,255,255,.05)', margin: '22px 0' }} />
+
+      <ul style={{ listStyle: 'none', padding: 0, marginBottom: 28, flexGrow: 1 }}>
+        {plan.features.map((f, j) => (
+          <li key={j} style={{
+            display: 'flex', alignItems: 'flex-start', gap: 10, padding: '7px 0',
+            fontSize: 13, color: 'rgba(199,214,255,.65)',
+          }}>
+            <Check size={15} style={{ color: accent ? '#00e87b' : 'rgba(199,214,255,.4)', flexShrink: 0, marginTop: 3 }} />
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+
+      <button onClick={() => onCta(plan)} style={{
+        width: '100%', padding: '15px', borderRadius: 14, fontSize: 13, fontWeight: 800, color: '#fff',
+        background: accent ? 'linear-gradient(135deg, rgba(0,232,123,.14), rgba(0,180,216,.14))' : 'rgba(255,255,255,.03)',
+        border: accent ? '1px solid rgba(0,232,123,.35)' : '1px solid rgba(255,255,255,.08)',
+        boxShadow: accent ? '0 0 20px rgba(0,232,123,.1)' : 'none',
+        transition: 'all .3s',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+        cursor: 'pointer',
+      }}>
+        {plan.cta} <ArrowRight size={15} />
+      </button>
+    </div>
+  )
+}
+
 export default function Pricing() {
   const router = useRouter()
-
-  const handleGetStarted = (plan: string) => {
-    router.push(`/auth/signup?plan=${plan.toLowerCase()}`)
-  }
+  const handleCta = (p: Plan) => router.push(p.ctaHref)
 
   return (
     <section id="pricing" style={{ padding: '100px 24px', position: 'relative' }}>
@@ -66,108 +164,43 @@ export default function Pricing() {
         background: 'linear-gradient(90deg, transparent, rgba(0,232,123,.12), transparent)',
       }} />
 
-      <div style={{ maxWidth: 900, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ textAlign: 'center' as const, marginBottom: 56 }}>
           <div style={{ fontSize: 10, letterSpacing: '.3em', textTransform: 'uppercase' as const, color: 'rgba(0,232,123,.6)', fontWeight: 700, marginBottom: 12 }}>
             Pricing
           </div>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, marginBottom: 12 }}>
-            Invest in Your <span className="gradient-text">AI Team</span>
+            A foundation, then a <span className="gradient-text">partner.</span>
           </h2>
-          <p style={{ fontSize: 15, color: 'rgba(199,214,255,.4)', maxWidth: 480, margin: '0 auto', lineHeight: 1.8 }}>
-            Month-to-month. No long-term contracts. Cancel anytime.
+          <p style={{ fontSize: 15, color: 'rgba(199,214,255,.5)', maxWidth: 560, margin: '0 auto', lineHeight: 1.8 }}>
+            Start with the Foundation. Layer in Custom AI Systems and a retainer when you are ready.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 20, alignItems: 'start' }}>
-          {plans.map((plan, i) => (
-            <div key={i} style={{
-              position: 'relative', borderRadius: 24, padding: 32,
-              background: 'linear-gradient(180deg, rgba(10,16,38,.7), rgba(5,8,16,.5))',
-              border: plan.flagship ? '1px solid rgba(0,232,123,.2)' : '1px solid rgba(255,255,255,.06)',
-              boxShadow: plan.flagship ? '0 0 50px rgba(0,232,123,.06), 0 0 100px rgba(0,180,216,.03)' : 'none',
-              transform: plan.flagship ? 'scale(1.03)' : 'none',
-              backdropFilter: 'blur(20px)',
-            }}>
-              {plan.flagship && (
-                <div style={{
-                  position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
-                  padding: '5px 18px', borderRadius: 99, fontSize: 10, fontWeight: 900,
-                  letterSpacing: '.15em', textTransform: 'uppercase' as const,
-                  background: 'linear-gradient(135deg, #00e87b, #00b4d8)', color: '#fff',
-                  boxShadow: '0 0 20px rgba(0,232,123,.3)',
-                }}>
-                  Full Team
-                </div>
-              )}
-
-              <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 4 }}>{plan.name}</h3>
-              <p style={{ fontSize: 13, color: 'rgba(199,214,255,.4)', marginBottom: 20 }}>{plan.desc}</p>
-
-              {/* Agent count badge */}
-              <div style={{
-                padding: '10px 16px', borderRadius: 12, marginBottom: 20,
-                background: plan.flagship ? 'rgba(0,232,123,.06)' : 'rgba(255,255,255,.02)',
-                border: plan.flagship ? '1px solid rgba(0,232,123,.12)' : '1px solid rgba(255,255,255,.04)',
-              }}>
-                <div style={{ fontSize: 14, fontWeight: 800, color: plan.flagship ? '#00e87b' : '#fff', marginBottom: 2 }}>{plan.agents}</div>
-                <div style={{ fontSize: 11, color: 'rgba(199,214,255,.35)' }}>{plan.agentList}</div>
-              </div>
-
-              <div style={{ marginBottom: 8 }}>
-                <span style={{ fontSize: 42, fontWeight: 900, color: '#fff' }}>{plan.price}</span>
-                <span style={{ fontSize: 14, color: 'rgba(199,214,255,.35)' }}>{plan.period}</span>
-              </div>
-              <div style={{ fontSize: 12, color: 'rgba(199,214,255,.35)', marginBottom: 28 }}>+ {plan.setup}</div>
-
-              <ul style={{ listStyle: 'none', padding: 0, marginBottom: 28 }}>
-                {plan.features.map((f, j) => (
-                  <li key={j} style={{
-                    display: 'flex', alignItems: 'center', gap: 10, padding: '7px 0',
-                    fontSize: 13, color: 'rgba(199,214,255,.6)',
-                  }}>
-                    <Check size={15} style={{ color: plan.flagship ? '#00e87b' : 'rgba(199,214,255,.3)', flexShrink: 0 }} />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              <button onClick={() => handleGetStarted(plan.name)} style={{
-                width: '100%', padding: '16px', borderRadius: 14, fontSize: 14, fontWeight: 800, color: '#fff',
-                background: plan.flagship ? 'linear-gradient(135deg, rgba(0,232,123,.12), rgba(0,180,216,.12))' : 'rgba(255,255,255,.03)',
-                border: plan.flagship ? '1px solid rgba(0,232,123,.35)' : '1px solid rgba(255,255,255,.08)',
-                boxShadow: plan.flagship ? '0 0 20px rgba(0,232,123,.1)' : 'none',
-                transition: 'all .3s',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = plan.flagship ? 'rgba(0,232,123,.5)' : 'rgba(255,255,255,.15)'
-                if (plan.flagship) e.currentTarget.style.boxShadow = '0 0 30px rgba(0,232,123,.2)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = plan.flagship ? 'rgba(0,232,123,.35)' : 'rgba(255,255,255,.08)'
-                if (plan.flagship) e.currentTarget.style.boxShadow = '0 0 20px rgba(0,232,123,.1)'
-              }}
-              >
-                Get Started <ArrowRight size={16} />
-              </button>
-
-              <button onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })} style={{
-                width: '100%', padding: '12px', borderRadius: 12, fontSize: 12, fontWeight: 600,
-                color: 'rgba(199,214,255,.4)', background: 'transparent', border: 'none',
-                marginTop: 8, transition: 'color .3s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'rgba(199,214,255,.7)' }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(199,214,255,.4)' }}
-              >
-                or book a free strategy call
-              </button>
-            </div>
-          ))}
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 20, alignItems: 'stretch', marginBottom: 32,
+        }}>
+          {engagements.map(p => <PlanCard key={p.name} plan={p} onCta={handleCta} />)}
         </div>
 
-        <p style={{ textAlign: 'center' as const, marginTop: 28, fontSize: 13, color: 'rgba(199,214,255,.3)' }}>
-          Ad spend is separate and paid directly to Google. Custom enterprise plans available for multi-location businesses.
+        <div style={{
+          fontSize: 10, fontWeight: 800, letterSpacing: '.25em',
+          color: 'rgba(199,214,255,.35)', textTransform: 'uppercase' as const,
+          textAlign: 'center' as const, marginBottom: 18,
+        }}>
+          Ongoing Partnership
+        </div>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 20, alignItems: 'stretch',
+        }}>
+          {retainers.map(p => <PlanCard key={p.name} plan={p} onCta={handleCta} />)}
+        </div>
+
+        <p style={{ textAlign: 'center' as const, marginTop: 36, fontSize: 13, color: 'rgba(199,214,255,.4)', maxWidth: 620, marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.7 }}>
+          Foundation is a one-time engagement. Retainers are month to month, no long-term contract. Custom AI Systems are scoped per build.
         </p>
       </div>
     </section>

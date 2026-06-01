@@ -1,31 +1,55 @@
 'use client'
 
-import { Users, Wrench, Headphones, BarChart3 } from 'lucide-react'
+import { Layers, LayoutDashboard, Globe, Bot } from 'lucide-react'
 
 const pillars = [
   {
-    icon: Users, title: 'Full AI Team Deployment',
-    desc: 'We don\'t give you one chatbot. We deploy an entire team — receptionist, sales rep, follow-up specialist, support agent, review manager, and reporting analyst. Each one trained specifically on your business.',
-    tag: 'Core Product',
-    highlights: ['Custom-trained on your services & pricing', 'Knows your brand voice and policies', 'Handles calls, texts, emails, and chat', 'Works 24/7/365 — no exceptions'],
+    icon: Layers,
+    tag: 'Digital Infrastructure',
+    title: 'The foundation your business runs on.',
+    desc: 'Domain, hosting, Google Workspace, lead capture, inquiry routing, and the back-end plumbing that makes everything work. Set up once. Owned by you.',
+    highlights: [
+      'Domain, DNS, and managed hosting',
+      'Google Workspace and business email',
+      'Lead capture, intake forms, inquiry routing',
+      'Standard analytics and tracking',
+    ],
   },
   {
-    icon: Wrench, title: 'Complete Infrastructure Build',
-    desc: 'We don\'t just drop agents in and leave. We build the entire system — your website, CRM pipeline, ad campaigns, booking flow, and automations. Everything connected, everything working together.',
-    tag: 'Infrastructure',
-    highlights: ['High-converting website or landing pages', 'CRM with lead tracking & pipeline stages', 'Google Ads setup & ongoing management', 'Automated booking & calendar integration'],
+    icon: Globe,
+    tag: 'Premium Websites',
+    title: 'Sites that look like the business you want to be.',
+    desc: 'Custom-built, fast, mobile-first websites. Designed to convert visitors into leads and to make your business look as credible as the work you do.',
+    highlights: [
+      'Custom design — not template fatigue',
+      'Mobile-first and responsive',
+      'Built to convert: clear CTAs, fast load',
+      'SEO basics, Open Graph, social previews',
+    ],
   },
   {
-    icon: Headphones, title: 'Managed & Optimized For You',
-    desc: 'Think of us as your AI department. We monitor your agents, optimize their performance, retrain them when your services change, and give you clear reports on what\'s working.',
-    tag: 'Managed Service',
-    highlights: ['Weekly performance optimization', 'Agent retraining as your business evolves', 'Escalation rules — humans loop in when needed', 'Dedicated account manager'],
+    icon: LayoutDashboard,
+    tag: 'Business Dashboards',
+    title: 'A back office that finally tells you what is happening.',
+    desc: 'Custom admin dashboards that surface leads, bookings, customers, and revenue in one place. Built for the owner who runs the business, not for the developer who built it.',
+    highlights: [
+      'Lead and inquiry inbox',
+      'Customer and booking views',
+      'Revenue and pipeline visibility',
+      'Role-based access for your team',
+    ],
   },
   {
-    icon: BarChart3, title: 'Live Dashboard & Transparency',
-    desc: 'See everything your AI team is doing in real-time. Every call, every lead, every booked appointment, every follow-up. Full audit trail. Nothing hidden.',
-    tag: 'Visibility',
-    highlights: ['Real-time agent activity feed', 'Lead source tracking & attribution', 'Revenue influenced reporting', 'Client portal — your business, your data'],
+    icon: Bot,
+    tag: 'Custom AI Systems',
+    title: 'AI employees and systems, scoped to your business.',
+    desc: 'We build the AI workforce your business actually needs. Sales, content, support, operations, or anything else — trained on your work, integrated with your stack.',
+    highlights: [
+      'AI Sales Assistant — qualify leads, book calls',
+      'AI Content Engine — drafts and creative on demand',
+      'AI Support Assistant — FAQs and intake, 24/7',
+      'Custom agents trained for your workflow',
+    ],
   },
 ]
 
@@ -40,13 +64,13 @@ export default function Services() {
       <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative', zIndex: 2 }}>
         <div style={{ textAlign: 'center' as const, marginBottom: 60 }}>
           <div style={{ fontSize: 10, letterSpacing: '.3em', textTransform: 'uppercase' as const, color: 'rgba(0,232,123,.6)', fontWeight: 700, marginBottom: 12 }}>
-            What You Get
+            What We Build
           </div>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, marginBottom: 12 }}>
-            Not a Tool. A Full <span className="gradient-text">AI Department.</span>
+            Digital infrastructure for <span className="gradient-text">modern businesses.</span>
           </h2>
-          <p style={{ fontSize: 15, color: 'rgba(199,214,255,.4)', maxWidth: 550, margin: '0 auto', lineHeight: 1.8 }}>
-            We build, deploy, train, and manage your AI workforce — so you can run your business, not babysit software.
+          <p style={{ fontSize: 15, color: 'rgba(199,214,255,.5)', maxWidth: 600, margin: '0 auto', lineHeight: 1.8 }}>
+            A website is the front door. The dashboard is the back office. AI is the workforce. We build all three.
           </p>
         </div>
 
@@ -80,7 +104,7 @@ export default function Services() {
                   }}>{p.tag}</span>
                 </div>
                 <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 10 }}>{p.title}</h3>
-                <p style={{ fontSize: 14, color: 'rgba(199,214,255,.5)', lineHeight: 1.8, margin: 0 }}>{p.desc}</p>
+                <p style={{ fontSize: 14, color: 'rgba(199,214,255,.55)', lineHeight: 1.8, margin: 0 }}>{p.desc}</p>
               </div>
 
               <div style={{ order: i % 2 === 1 ? 1 : 2 }} className="pillar-list">
@@ -90,13 +114,13 @@ export default function Services() {
                 }}>
                   {p.highlights.map((h, j) => (
                     <div key={j} style={{
-                      display: 'flex', alignItems: 'center', gap: 10,
+                      display: 'flex', alignItems: 'flex-start', gap: 10,
                       padding: '10px 0',
                       borderBottom: j < p.highlights.length - 1 ? '1px solid rgba(255,255,255,.04)' : 'none',
-                      fontSize: 13, color: 'rgba(199,214,255,.6)',
+                      fontSize: 13, color: 'rgba(199,214,255,.65)',
                     }}>
-                      <span style={{ color: '#00e87b', fontSize: 14 }}>✓</span>
-                      {h}
+                      <span style={{ color: '#00e87b', fontSize: 14, lineHeight: 1.4 }}>—</span>
+                      <span>{h}</span>
                     </div>
                   ))}
                 </div>
