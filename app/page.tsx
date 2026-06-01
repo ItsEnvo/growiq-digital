@@ -6,8 +6,8 @@ import AIAgents from './components/AIAgents'
 import CommandCenter from './components/CommandCenter'
 import HowItWorks from './components/HowItWorks'
 import Results from './components/Results'
+import CaseStudy from './components/CaseStudy'
 import Pricing from './components/Pricing'
-import Testimonials from './components/Testimonials'
 import FAQ from './components/FAQ'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
@@ -20,13 +20,13 @@ export default function Home() {
       <Navigation />
       <Hero />
       <LogoBar />
+      <Services />
       <AIAgents />
       <CommandCenter />
-      <Services />
       <HowItWorks />
       <Results />
+      <CaseStudy />
       <Pricing />
-      <Testimonials />
       <FAQ />
       <CTA />
       <Footer />
