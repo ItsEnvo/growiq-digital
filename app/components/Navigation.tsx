@@ -3,17 +3,26 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 
-const links = [
-  { label: 'AI Agents', id: 'agents' },
-  { label: 'Platform', id: 'platform' },
-  { label: 'Pricing', id: 'pricing' },
-  { label: 'FAQ', id: 'faq' },
+type NavLink =
+  | { label: string; kind: 'anchor'; id: string }
+  | { label: string; kind: 'route'; href: string }
+
+const links: NavLink[] = [
+  { label: 'Services', kind: 'anchor', id: 'services' },
+  { label: 'AI Agents', kind: 'anchor', id: 'agents' },
+  { label: 'Case Study', kind: 'anchor', id: 'case-study' },
+  { label: 'Pricing', kind: 'anchor', id: 'pricing' },
+  { label: 'FAQ', kind: 'anchor', id: 'faq' },
 ]
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
+  const onHome = pathname === '/'
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 50)
@@ -21,9 +30,13 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', h)
   }, [])
 
-  const scroll = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  const goAnchor = (id: string) => {
     setOpen(false)
+    if (onHome) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      router.push(`/#${id}`)
+    }
   }
 
   return (
@@ -35,7 +48,7 @@ export default function Navigation() {
       borderBottom: scrolled ? '1px solid rgba(255,255,255,.05)' : 'none',
     }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', textDecoration: 'none' }}>
           <div style={{
             width: 32, height: 32, borderRadius: 8,
             background: 'linear-gradient(135deg, rgba(0,232,123,.15), rgba(0,180,216,.15))',
@@ -49,29 +62,26 @@ export default function Navigation() {
         </Link>
 
         {/* Desktop */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 32 }} className="desktop-nav">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 28 }} className="desktop-nav">
           {links.map(l => (
-            <button key={l.id} onClick={() => scroll(l.id)} style={{
+            <button key={l.label} onClick={() => l.kind === 'anchor' ? goAnchor(l.id) : router.push(l.href)} style={{
               fontSize: 13, fontWeight: 600, color: 'rgba(199,214,255,.55)',
-              transition: 'color .2s', background: 'none', border: 'none',
+              transition: 'color .2s', background: 'none', border: 'none', cursor: 'pointer',
             }}
             onMouseEnter={e => e.currentTarget.style.color = '#fff'}
             onMouseLeave={e => e.currentTarget.style.color = 'rgba(199,214,255,.55)'}
             >{l.label}</button>
           ))}
-          <button onClick={() => scroll('cta')} style={{
-            padding: '10px 24px', borderRadius: 10, fontSize: 13, fontWeight: 800, color: '#fff',
+          <Link href="/contact?mode=call" style={{
+            padding: '10px 22px', borderRadius: 10, fontSize: 13, fontWeight: 800, color: '#fff',
             background: 'linear-gradient(135deg, rgba(0,232,123,.12), rgba(0,180,216,.12))',
             border: '1px solid rgba(0,232,123,.35)',
-            transition: 'all .2s',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(0,232,123,.6)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(0,232,123,.15)' }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(0,232,123,.35)'; e.currentTarget.style.boxShadow = 'none' }}
-          >Get Started</button>
+            transition: 'all .2s', textDecoration: 'none',
+          }}>Book a call</Link>
         </div>
 
         {/* Mobile toggle */}
-        <button onClick={() => setOpen(!open)} style={{ display: 'none', padding: 8, color: '#fff' }} className="mobile-toggle">
+        <button onClick={() => setOpen(!open)} style={{ display: 'none', padding: 8, color: '#fff', background: 'none', border: 'none', cursor: 'pointer' }} className="mobile-toggle">
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -83,16 +93,17 @@ export default function Navigation() {
           borderBottom: '1px solid rgba(255,255,255,.06)',
         }} className="mobile-menu">
           {links.map(l => (
-            <button key={l.id} onClick={() => scroll(l.id)} style={{
+            <button key={l.label} onClick={() => l.kind === 'anchor' ? goAnchor(l.id) : router.push(l.href)} style={{
               display: 'block', width: '100%', textAlign: 'left', padding: '12px 0',
-              fontSize: 14, fontWeight: 600, color: '#fff', background: 'none', border: 'none',
+              fontSize: 14, fontWeight: 600, color: '#fff', background: 'none', border: 'none', cursor: 'pointer',
             }}>{l.label}</button>
           ))}
-          <button onClick={() => scroll('cta')} style={{
+          <Link href="/contact?mode=call" onClick={() => setOpen(false)} style={{
+            display: 'block', textAlign: 'center' as const,
             marginTop: 12, width: '100%', padding: '14px', borderRadius: 10, fontSize: 14, fontWeight: 800, color: '#fff',
             background: 'linear-gradient(135deg, rgba(0,232,123,.12), rgba(0,180,216,.12))',
-            border: '1px solid rgba(0,232,123,.35)',
-          }}>Get Started</button>
+            border: '1px solid rgba(0,232,123,.35)', textDecoration: 'none',
+          }}>Book a call</Link>
         </div>
       )}
 

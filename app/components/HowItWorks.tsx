@@ -1,10 +1,10 @@
 'use client'
 
 const steps = [
-  { num: '01', title: 'Discovery Call', desc: 'We learn everything about your business — services, pricing, brand voice, policies, pain points, and goals. This is how we train your agents to sound like you.' },
-  { num: '02', title: 'Build Your Infrastructure', desc: 'We set up everything — website, CRM, ad campaigns, booking flows, automations. Your entire growth engine, built from scratch and connected.' },
-  { num: '03', title: 'Deploy & Train Your AI Team', desc: 'We deploy all 6 agents, trained on your specific business. They know your services, your hours, your FAQ, your pricing, and your rules. We test everything before they go live.' },
-  { num: '04', title: 'Launch & Manage', desc: 'Your AI team goes live. Leads flow in. Agents handle them. You watch it happen from your dashboard. We optimize weekly — better performance, month over month.' },
+  { num: '01', title: 'Discovery call', desc: 'We learn the business — services, pricing, brand voice, policies, pain points, and goals. This is how we build something that sounds and runs like you.' },
+  { num: '02', title: 'Build the foundation', desc: 'We set up the website, dashboard, lead capture, domain, hosting, and Google Workspace. The infrastructure your business runs on, configured and handed over.' },
+  { num: '03', title: 'Deploy AI systems', desc: 'When AI is in scope, we deploy the agents your business actually needs — sales, content, support, or custom — trained on your work and integrated with your stack.' },
+  { num: '04', title: 'Launch and partner', desc: 'You go live. Leads flow in. The dashboard shows what is happening. On a retainer, we keep improving the system month over month.' },
 ]
 
 export default function HowItWorks() {
@@ -23,7 +23,7 @@ export default function HowItWorks() {
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, marginBottom: 12 }}>
             Live in <span className="gradient-text">7 Days</span>
           </h2>
-          <p style={{ fontSize: 15, color: 'rgba(199,214,255,.4)', lineHeight: 1.8 }}>From first call to a fully operational AI team — in one week.</p>
+          <p style={{ fontSize: 15, color: 'rgba(199,214,255,.45)', lineHeight: 1.8 }}>From first call to a live foundation — in one week.</p>
         </div>
 
         <div style={{ position: 'relative', paddingLeft: 44 }}>
