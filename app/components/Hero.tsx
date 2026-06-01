@@ -1,22 +1,30 @@
 'use client'
 
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Headphones, Briefcase, RefreshCw, Calendar, Shield, Star, Palette, Share2, BarChart3, type LucideIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
-const agents = [
-  { emoji: '📞', name: 'IRIS', role: 'Reception', status: 'Answering call...', detail: 'New patient inquiry — qualifying', color: '#00e87b' },
-  { emoji: '💼', name: 'ATLAS', role: 'Sales', status: 'Engaging lead #312', detail: 'Personalized offer sent — 47s response', color: '#00b4d8' },
-  { emoji: '🔄', name: 'PULSE', role: 'Follow-Up', status: 'Recovering no-show', detail: 'Re-engagement text — client replied ✓', color: '#f59e0b' },
-  { emoji: '📅', name: 'SYNC', role: 'Scheduling', status: 'Appointment confirmed', detail: 'Sarah M. — Thursday 2:00 PM', color: '#a855f7' },
-  { emoji: '🛡️', name: 'AEGIS', role: 'Support', status: 'Handling inquiry', detail: 'Insurance coverage question — resolved', color: '#06b6d4' },
-  { emoji: '⭐', name: 'PRISM', role: 'Reviews', status: 'Review secured', detail: 'Mike R. left 5-star on Google', color: '#ef4444' },
-  { emoji: '🎨', name: 'MUSE', role: 'Content', status: 'Designing post', detail: 'Spring promo graphic — ready for approval', color: '#f472b6' },
-  { emoji: '📱', name: 'WAVE', role: 'Social', status: 'Posting to Instagram', detail: 'Scheduled 4 posts this week — 2 published', color: '#818cf8' },
-  { emoji: '📊', name: 'RADAR', role: 'Intel', status: 'Compiling report', detail: '42 leads · 28 booked · $31K influenced', color: '#22c55e' },
-  { emoji: '🎯', name: 'SCOUT', role: 'Marketing', status: 'Optimizing campaign', detail: 'CPC down 12% — CTR up 8%', color: '#e879f9' },
+type HeroAgent = {
+  Icon: LucideIcon
+  name: string
+  role: string
+  status: string
+  detail: string
+  color: string
+}
+
+const agents: HeroAgent[] = [
+  { Icon: Headphones, name: 'IRIS',  role: 'Reception',  status: 'Answering call',         detail: 'New inbound inquiry — qualifying',           color: '#00e87b' },
+  { Icon: Briefcase,  name: 'ATLAS', role: 'Sales',      status: 'Engaging lead #312',     detail: 'Personalized offer sent — 47s response',     color: '#00b4d8' },
+  { Icon: RefreshCw,  name: 'PULSE', role: 'Follow-Up',  status: 'Recovering no-show',     detail: 'Re-engagement text — client replied',         color: '#f59e0b' },
+  { Icon: Calendar,   name: 'SYNC',  role: 'Scheduling', status: 'Appointment confirmed',  detail: 'Sarah M. — Thursday 2:00 PM',                color: '#a855f7' },
+  { Icon: Shield,     name: 'AEGIS', role: 'Support',    status: 'Handling inquiry',       detail: 'Insurance question — resolved',              color: '#06b6d4' },
+  { Icon: Star,       name: 'PRISM', role: 'Reviews',    status: 'Review secured',         detail: 'Mike R. — 5-star on Google',                 color: '#ef4444' },
+  { Icon: Palette,    name: 'MUSE',  role: 'Content',    status: 'Designing post',         detail: 'Spring promo graphic — ready for approval',  color: '#f472b6' },
+  { Icon: Share2,     name: 'WAVE',  role: 'Social',     status: 'Posting to Instagram',   detail: '4 posts scheduled — 2 published',            color: '#818cf8' },
+  { Icon: BarChart3,  name: 'RADAR', role: 'Intel',      status: 'Compiling report',       detail: '42 leads · 28 booked · $31K influenced',     color: '#22c55e' },
 ]
 
-// Compute positions for a given size
 function getPos(i: number, count: number, radius: number, center: number) {
   const angle = (i / count) * Math.PI * 2 - Math.PI / 2
   return {
@@ -53,6 +61,7 @@ export default function Hero() {
   const center = size / 2
   const nodeSize = size >= 500 ? 80 : size >= 380 ? 60 : 50
   const hubSize = size >= 500 ? 120 : size >= 380 ? 90 : 75
+  const ActiveIcon = agents[activeIdx].Icon
 
   return (
     <section style={{
@@ -73,63 +82,67 @@ export default function Hero() {
               background: 'rgba(0,232,123,.04)', marginBottom: 28,
             }}>
               <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#00e87b', animation: 'pulse 2s infinite' }} />
-              10 AI Agents · Deployed in 7 Days
+              Digital infrastructure · Premium websites · AI systems
             </div>
 
+            {/* HERO COPY — interim, voice-aligned. Theo to replace with final hero/subhead. */}
             <h1 className="serif" style={{
               fontSize: 'clamp(30px, 3.8vw, 50px)', fontWeight: 800, lineHeight: 1.08,
               marginBottom: 20, letterSpacing: '-.02em',
             }}>
-              A Full Team of<br />AI Employees.<br />
-              <span className="gradient-text">Trained on Your Business.</span>
+              The digital foundation<br />for modern businesses.<br />
+              <span className="gradient-text">Built to look and run premium.</span>
             </h1>
 
-            <p style={{ fontSize: 15, color: 'rgba(199,214,255,.5)', maxWidth: 420, lineHeight: 1.85, marginBottom: 16 }}>
-              Reception. Sales. Follow-up. Scheduling. Support. Reviews. Content. Social media. Reporting. Marketing. — All handled by AI agents trained on your business. 24/7.
+            <p style={{ fontSize: 15, color: 'rgba(199,214,255,.55)', maxWidth: 460, lineHeight: 1.85, marginBottom: 16 }}>
+              GrowIQ builds premium websites, custom dashboards, and AI systems for businesses. Foundation engagements start at $3,500.
             </p>
 
-            <p style={{ fontSize: 13, color: 'rgba(199,214,255,.3)', maxWidth: 420, lineHeight: 1.8, marginBottom: 32 }}>
-              Replace $200K+ in salaries. Never miss a call. Never lose a lead. Never go silent on social. See everything in your Command Center.
+            <p style={{ fontSize: 13, color: 'rgba(199,214,255,.35)', maxWidth: 460, lineHeight: 1.8, marginBottom: 32 }}>
+              A website is the front door. The dashboard is the back office. AI is the workforce. We build all three.
             </p>
 
-            <button onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })} style={{
-              padding: '15px 28px', borderRadius: 12, fontSize: 14, fontWeight: 800, color: '#fff',
-              background: 'linear-gradient(135deg, rgba(0,232,123,.15), rgba(0,180,216,.15))',
-              border: '1px solid rgba(0,232,123,.4)',
-              boxShadow: '0 0 30px rgba(0,232,123,.15), 0 0 60px rgba(0,180,216,.08)',
-              display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'all .3s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 40px rgba(0,232,123,.3)'; e.currentTarget.style.borderColor = 'rgba(0,232,123,.6)' }}
-            onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 0 30px rgba(0,232,123,.15), 0 0 60px rgba(0,180,216,.08)'; e.currentTarget.style.borderColor = 'rgba(0,232,123,.4)' }}
-            >
-              Deploy Your AI Team <ArrowRight size={16} />
-            </button>
+            <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: 12 }}>
+              <Link href="/contact?mode=call" style={{
+                padding: '15px 26px', borderRadius: 12, fontSize: 14, fontWeight: 800, color: '#fff',
+                background: 'linear-gradient(135deg, rgba(0,232,123,.15), rgba(0,180,216,.15))',
+                border: '1px solid rgba(0,232,123,.4)',
+                boxShadow: '0 0 30px rgba(0,232,123,.15), 0 0 60px rgba(0,180,216,.08)',
+                display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'all .3s', textDecoration: 'none',
+              }}>
+                Book a discovery call <ArrowRight size={16} />
+              </Link>
+              <Link href="/pricing" style={{
+                padding: '15px 26px', borderRadius: 12, fontSize: 14, fontWeight: 700, color: 'rgba(199,214,255,.85)',
+                background: 'rgba(255,255,255,.02)',
+                border: '1px solid rgba(255,255,255,.08)',
+                display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'all .3s', textDecoration: 'none',
+              }}>
+                See pricing
+              </Link>
+            </div>
           </div>
 
           {/* ORBITAL HUD */}
           <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="hero-right">
             <div style={{ position: 'relative', width: size, height: size }}>
 
-              {/* Outer pulse ring */}
               <div style={{
                 position: 'absolute', inset: -40, borderRadius: '50%',
                 border: '1px solid rgba(0,232,123,.04)',
                 animation: 'ring-pulse 4s ease-in-out infinite',
               }} />
 
-              {/* Orbit rings */}
               <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1px solid rgba(0,232,123,.07)', animation: 'orbit 45s linear infinite' }} />
               <div style={{ position: 'absolute', inset: size * 0.09, borderRadius: '50%', border: '1px dashed rgba(0,180,216,.06)', animation: 'orbit 30s linear infinite reverse' }} />
               <div style={{ position: 'absolute', inset: size * 0.2, borderRadius: '50%', border: '1px solid rgba(168,85,247,.05)', animation: 'orbit 55s linear infinite' }} />
 
-              {/* Center glow */}
               <div style={{
                 position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
                 width: hubSize * 2, height: hubSize * 2, borderRadius: '50%', pointerEvents: 'none',
                 background: 'radial-gradient(circle, rgba(0,232,123,.07) 0%, transparent 70%)',
               }} />
 
-              {/* Center hub */}
               <div style={{
                 position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
                 width: hubSize, height: hubSize, borderRadius: '50%', zIndex: 5,
@@ -138,7 +151,6 @@ export default function Hero() {
                 boxShadow: '0 0 50px rgba(0,232,123,.12), 0 0 100px rgba(0,180,216,.06)',
                 display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center',
               }}>
-                {/* Spinning conic border */}
                 <div style={{
                   position: 'absolute', inset: -3, borderRadius: '50%',
                   background: 'conic-gradient(from 0deg, transparent 0%, rgba(0,232,123,.35) 20%, transparent 40%, rgba(0,180,216,.35) 60%, transparent 80%, rgba(168,85,247,.25) 100%)',
@@ -150,11 +162,11 @@ export default function Hero() {
                 <span style={{ fontSize: hubSize >= 100 ? 8 : 6, letterSpacing: '.18em', color: 'rgba(199,214,255,.35)', marginTop: 2 }}>COMMAND CENTER</span>
               </div>
 
-              {/* Agent nodes */}
               {agents.map((a, i) => {
                 const { x, y, cx, cy } = getPos(i, agents.length, radius, center)
                 const isActive = i === activeIdx
                 const half = nodeSize / 2
+                const Icon = a.Icon
 
                 return (
                   <div key={i} style={{
@@ -170,7 +182,10 @@ export default function Hero() {
                     backdropFilter: 'blur(12px)', zIndex: isActive ? 10 : 3,
                     transform: isActive ? 'scale(1.12)' : 'scale(1)',
                   }}>
-                    <span style={{ fontSize: nodeSize >= 70 ? 24 : nodeSize >= 56 ? 18 : 15, marginBottom: 2 }}>{a.emoji}</span>
+                    <Icon
+                      size={nodeSize >= 70 ? 22 : nodeSize >= 56 ? 16 : 14}
+                      style={{ color: isActive ? a.color : 'rgba(199,214,255,.55)', marginBottom: 4, transition: 'color .4s' }}
+                    />
                     <span style={{
                       fontSize: nodeSize >= 70 ? 9 : 7, fontWeight: 800, letterSpacing: '.08em',
                       color: isActive ? a.color : 'rgba(199,214,255,.4)', transition: 'color .4s',
@@ -179,7 +194,6 @@ export default function Hero() {
                       <span style={{ fontSize: 7, color: 'rgba(199,214,255,.2)', letterSpacing: '.04em' }}>{a.role}</span>
                     )}
 
-                    {/* Connection line */}
                     <svg style={{ position: 'absolute', top: half, left: half, width: 1, height: 1, overflow: 'visible', zIndex: -1, pointerEvents: 'none' }}>
                       <line x1="0" y1="0" x2={cx - x} y2={cy - y}
                         stroke={isActive ? a.color : 'rgba(255,255,255,.04)'} strokeWidth={isActive ? 1.5 : 0.5}
@@ -190,7 +204,6 @@ export default function Hero() {
                 )
               })}
 
-              {/* Active detail bar */}
               <div style={{
                 position: 'absolute', bottom: size >= 500 ? -70 : -56, left: '50%', transform: 'translateX(-50%)',
                 padding: size >= 500 ? '12px 24px' : '9px 16px', borderRadius: 14, whiteSpace: 'nowrap' as const,
@@ -199,11 +212,11 @@ export default function Hero() {
                 transition: 'all .5s cubic-bezier(.16,1,.3,1)', zIndex: 10,
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: agents[activeIdx].color, animation: 'pulse 1.5s infinite' }} />
+                  <ActiveIcon size={12} style={{ color: agents[activeIdx].color }} />
                   <span style={{ fontSize: size >= 500 ? 12 : 10, fontWeight: 800, color: agents[activeIdx].color }}>{agents[activeIdx].name}</span>
                   <span style={{ fontSize: size >= 500 ? 11 : 9, color: 'rgba(199,214,255,.35)' }}>— {agents[activeIdx].status}</span>
                 </div>
-                <div style={{ fontSize: size >= 500 ? 11 : 9, color: 'rgba(199,214,255,.4)', marginTop: 3, paddingLeft: 14 }}>{agents[activeIdx].detail}</div>
+                <div style={{ fontSize: size >= 500 ? 11 : 9, color: 'rgba(199,214,255,.4)', marginTop: 3, paddingLeft: 20 }}>{agents[activeIdx].detail}</div>
               </div>
             </div>
           </div>

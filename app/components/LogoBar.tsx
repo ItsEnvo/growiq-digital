@@ -2,10 +2,10 @@
 
 export default function LogoBar() {
   const stats = [
-    { val: '10', label: 'AI Agents Deployed', color: '#00e87b' },
-    { val: '24/7', label: 'Always Online', color: '#00b4d8' },
-    { val: '<5s', label: 'Response Time', color: '#a855f7' },
-    { val: '0', label: 'Missed Calls', color: '#f59e0b' },
+    { val: '$3.5K', label: 'Foundation, starting', color: '#00e87b' },
+    { val: '9', label: 'Named AI specialists', color: '#00b4d8' },
+    { val: '24/7', label: 'Always online', color: '#a855f7' },
+    { val: '1', label: 'Front door, all of it', color: '#f59e0b' },
   ]
 
   return (
