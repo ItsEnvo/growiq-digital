@@ -73,10 +73,6 @@ export default function Footer() {
           <p style={{ fontSize: 11, color: 'rgba(199,214,255,.3)', margin: 0 }}>
             © 2026 GrowIQ Digital. All rights reserved.
           </p>
-          <div style={{ display: 'flex', gap: 20 }}>
-            <Link href="/privacy" style={{ fontSize: 11, color: 'rgba(199,214,255,.3)', textDecoration: 'none' }}>Privacy</Link>
-            <Link href="/terms" style={{ fontSize: 11, color: 'rgba(199,214,255,.3)', textDecoration: 'none' }}>Terms</Link>
-          </div>
         </div>
       </div>
 
