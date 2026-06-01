@@ -6,10 +6,12 @@ import {
   getClientSubscription 
 } from '@/lib/db';
 
-const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
-
-if (!STRIPE_WEBHOOK_SECRET) {
-  throw new Error('STRIPE_WEBHOOK_SECRET environment variable is required');
+function getWebhookSecret(): string {
+  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  if (!secret) {
+    throw new Error('STRIPE_WEBHOOK_SECRET environment variable is required');
+  }
+  return secret;
 }
 
 function verifyStripeSignature(rawBody: string, signature: string): boolean {
@@ -32,7 +34,7 @@ function verifyStripeSignature(rawBody: string, signature: string): boolean {
 
     const payload = `${timestamp}.${rawBody}`;
     const expectedSignature = crypto
-      .createHmac('sha256', STRIPE_WEBHOOK_SECRET!)
+      .createHmac('sha256', getWebhookSecret())
       .update(payload)
       .digest('hex');
 

@@ -1,8 +1,11 @@
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 const STRIPE_BASE_URL = 'https://api.stripe.com/v1';
 
-if (!STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY environment variable is required');
+function getStripeKey(): string {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) {
+    throw new Error('STRIPE_SECRET_KEY environment variable is required');
+  }
+  return key;
 }
 
 interface PlanConfig {
@@ -72,7 +75,7 @@ async function stripeApiRequest(endpoint: string, data: Record<string, any>) {
   const response = await fetch(`${STRIPE_BASE_URL}${endpoint}`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${STRIPE_SECRET_KEY}`,
+      'Authorization': `Bearer ${getStripeKey()}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: body,
@@ -164,7 +167,7 @@ export async function createCheckoutSession({
 export async function getSubscriptionStatus(subscriptionId: string) {
   const response = await fetch(`${STRIPE_BASE_URL}/subscriptions/${subscriptionId}`, {
     headers: {
-      'Authorization': `Bearer ${STRIPE_SECRET_KEY}`,
+      'Authorization': `Bearer ${getStripeKey()}`,
     },
   });
 
@@ -201,7 +204,7 @@ export async function cancelSubscription(subscriptionId: string) {
 export async function getCustomerSubscriptions(customerId: string) {
   const response = await fetch(`${STRIPE_BASE_URL}/subscriptions?customer=${customerId}&limit=10`, {
     headers: {
-      'Authorization': `Bearer ${STRIPE_SECRET_KEY}`,
+      'Authorization': `Bearer ${getStripeKey()}`,
     },
   });
 
