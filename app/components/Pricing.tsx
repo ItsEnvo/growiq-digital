@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 type Plan = {
   name: string
-  kind: 'engagement' | 'retainer'
+  kind: 'engagement' | 'retainer' | 'addon'
   price: string
   priceNote: string
   desc: string
@@ -13,6 +13,7 @@ type Plan = {
   cta: string
   ctaHref: string
   flagship?: boolean
+  badge?: string
 }
 
 const engagements: Plan[] = [
@@ -51,6 +52,57 @@ const engagements: Plan[] = [
     ],
     cta: 'Scope an AI System',
     ctaHref: '/contact?mode=ai-systems',
+  },
+  {
+    name: 'AI Agent Infrastructure',
+    kind: 'engagement',
+    price: '$7,500',
+    priceNote: 'starting',
+    desc: 'A fully custom AI agent team built to run your business operations — sales, support, content, and more — powered by Claude and OpenClaw.',
+    features: [
+      'Custom multi-agent system design',
+      'Sales + support + content agents',
+      'Automated workflows & task execution',
+      'Full integration with your existing tools',
+      '30-day onboarding & training',
+      'Dedicated agent dashboard',
+    ],
+    cta: 'Scope Your Agent Team',
+    ctaHref: '/contact?mode=ai-agent-infra',
+    badge: 'Enterprise',
+  },
+]
+
+const addons: Plan[] = [
+  {
+    name: 'Google Review Removal',
+    kind: 'addon',
+    price: '$250',
+    priceNote: 'per review',
+    desc: 'We dispute and remove damaging or fake Google reviews that are hurting your star rating and costing you customers.',
+    features: [
+      'Review audit and eligibility check',
+      'Formal Google dispute filing',
+      'Policy violation documentation',
+      'Removal confirmation',
+    ],
+    cta: 'Remove Google Reviews',
+    ctaHref: '/contact?mode=google-review-removal',
+  },
+  {
+    name: 'Yelp Review Removal',
+    kind: 'addon',
+    price: '$250',
+    priceNote: 'per review',
+    desc: 'We identify and dispute policy-violating Yelp reviews to protect your reputation and improve your Yelp presence.',
+    features: [
+      'Review audit and eligibility check',
+      'Yelp dispute and flagging process',
+      'Policy violation documentation',
+      'Removal confirmation',
+    ],
+    cta: 'Remove Yelp Reviews',
+    ctaHref: '/contact?mode=yelp-review-removal',
   },
 ]
 
@@ -110,12 +162,23 @@ function PlanCard({ plan, onCta }: { plan: Plan; onCta: (p: Plan) => void }) {
           Start Here
         </div>
       )}
+      {plan.badge && (
+        <div style={{
+          position: 'absolute', top: -12, right: 20,
+          padding: '5px 18px', borderRadius: 99, fontSize: 10, fontWeight: 900,
+          letterSpacing: '.15em', textTransform: 'uppercase' as const,
+          background: 'linear-gradient(135deg, #7c3aed, #00b4d8)', color: '#fff',
+          boxShadow: '0 0 20px rgba(124,58,237,.3)',
+        }}>
+          {plan.badge}
+        </div>
+      )}
 
       <div style={{
         fontSize: 10, fontWeight: 800, letterSpacing: '.18em',
         color: 'rgba(199,214,255,.35)', textTransform: 'uppercase' as const, marginBottom: 10,
       }}>
-        {plan.kind === 'engagement' ? 'Engagement' : 'Retainer'}
+        {plan.kind === 'engagement' ? 'Engagement' : plan.kind === 'retainer' ? 'Retainer' : 'Add-On'}
       </div>
       <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 8 }}>{plan.name}</h3>
       <p style={{ fontSize: 13, color: 'rgba(199,214,255,.5)', lineHeight: 1.7, marginBottom: 22 }}>{plan.desc}</p>
@@ -197,6 +260,21 @@ export default function Pricing() {
           gap: 20, alignItems: 'stretch',
         }}>
           {retainers.map(p => <PlanCard key={p.name} plan={p} onCta={handleCta} />)}
+        </div>
+
+        <div style={{
+          fontSize: 10, fontWeight: 800, letterSpacing: '.25em',
+          color: 'rgba(199,214,255,.35)', textTransform: 'uppercase' as const,
+          textAlign: 'center' as const, marginBottom: 18, marginTop: 48,
+        }}>
+          Reputation Protection
+        </div>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 20, alignItems: 'stretch',
+        }}>
+          {addons.map(p => <PlanCard key={p.name} plan={p} onCta={handleCta} />)}
         </div>
 
         <p style={{ textAlign: 'center' as const, marginTop: 36, fontSize: 13, color: 'rgba(199,214,255,.4)', maxWidth: 620, marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.7 }}>

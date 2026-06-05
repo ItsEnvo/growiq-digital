@@ -1,6 +1,6 @@
 'use client'
 
-import { Layers, LayoutDashboard, Globe, Bot } from 'lucide-react'
+import { Layers, LayoutDashboard, Globe, Bot, Network, Shield } from 'lucide-react'
 
 const pillars = [
   {
@@ -49,6 +49,32 @@ const pillars = [
       'AI Content Engine — drafts and creative on demand',
       'AI Support Assistant — FAQs and intake, 24/7',
       'Custom agents trained for your workflow',
+    ],
+  },
+  {
+    icon: Network,
+    tag: 'Enterprise',
+    title: 'Deploy a full AI agent team that runs your business.',
+    desc: 'Deploy a full team of AI agents trained on your business — handling sales outreach, customer support, content creation, and daily operations 24/7.',
+    highlights: [
+      'AI Sales Agent',
+      'AI Support Agent',
+      'AI Content Engine',
+      'AI Operations Manager',
+      'Custom workflow automation',
+      'Runs while you sleep',
+    ],
+  },
+  {
+    icon: Shield,
+    tag: 'Protection',
+    title: 'Clean up your online reputation and keep it clean.',
+    desc: 'Clean up your online presence. We remove damaging Google and Yelp reviews that are costing you customers and suppressing your ratings.',
+    highlights: [
+      'Google review removal — $250/review',
+      'Yelp review removal — $250/review',
+      'Review dispute & flagging',
+      'Ongoing monitoring',
     ],
   },
 ]
