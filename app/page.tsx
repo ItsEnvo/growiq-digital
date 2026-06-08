@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import LogoBar from './components/LogoBar'
 import Services from './components/Services'
 import AIAgents from './components/AIAgents'
+import AgentNetwork from './components/AgentNetwork'
 import CommandCenter from './components/CommandCenter'
 import HowItWorks from './components/HowItWorks'
 import Results from './components/Results'
@@ -22,6 +23,7 @@ export default function Home() {
       <LogoBar />
       <Services />
       <AIAgents />
+      <AgentNetwork />
       <CommandCenter />
       <HowItWorks />
       <Results />

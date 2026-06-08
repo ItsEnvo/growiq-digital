@@ -136,6 +136,24 @@ export async function initializeDatabase() {
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
   )`;
+
+  await db`CREATE TABLE IF NOT EXISTS prospects (
+    id SERIAL PRIMARY KEY,
+    company_name TEXT NOT NULL,
+    website_url TEXT,
+    phone TEXT,
+    address TEXT,
+    google_maps_url TEXT,
+    google_place_id TEXT,
+    status TEXT DEFAULT 'identified',
+    notes TEXT DEFAULT '',
+    analysis JSONB,
+    email_draft TEXT,
+    dm_draft TEXT,
+    source TEXT DEFAULT 'manual',
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+  )`;
 }
 
 // ── Types ───────────────────────────────────────────────────
