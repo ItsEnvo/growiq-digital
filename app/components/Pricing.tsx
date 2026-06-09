@@ -20,8 +20,8 @@ const engagements: Plan[] = [
   {
     name: 'Foundation',
     kind: 'engagement',
-    price: '$3,500',
-    priceNote: 'starting',
+    price: 'Call for Quote',
+    priceNote: '',
     desc: 'The complete digital foundation. Premium website, admin dashboard, lead capture, and the infrastructure to run on top of.',
     features: [
       'Premium luxury website',
@@ -39,36 +39,20 @@ const engagements: Plan[] = [
   {
     name: 'Custom AI Systems',
     kind: 'engagement',
-    price: 'Custom',
-    priceNote: 'scoped per business',
-    desc: 'Custom AI employees and business systems, built to the way your company actually works.',
+    price: 'Call for Quote',
+    priceNote: 'scoped to your business',
+    desc: 'Custom AI employees and agent teams built to run your business operations — sales, support, content, and more.',
     features: [
       'AI Sales Assistant',
-      'AI Content Engine',
       'AI Support Assistant',
-      'AI Executive Assistant',
+      'AI Content Engine',
       'AI Operations Manager',
-      'And more — scoped to your workflow',
+      'Custom multi-agent system design',
+      'Full integration with your existing tools',
+      '30-day onboarding and training',
     ],
     cta: 'Scope an AI System',
     ctaHref: '/contact?mode=ai-systems',
-  },
-  {
-    name: 'AI Agent Infrastructure',
-    kind: 'engagement',
-    price: '$7,500',
-    priceNote: 'starting',
-    desc: 'A fully custom AI agent team built to run your business operations — sales, support, content, and more — powered by Claude and OpenClaw.',
-    features: [
-      'Custom multi-agent system design',
-      'Sales + support + content agents',
-      'Automated workflows & task execution',
-      'Full integration with your existing tools',
-      '30-day onboarding & training',
-      'Dedicated agent dashboard',
-    ],
-    cta: 'Scope Your Agent Team',
-    ctaHref: '/contact?mode=ai-agent-infra',
     badge: 'Enterprise',
   },
 ]
@@ -90,19 +74,19 @@ const addons: Plan[] = [
     ctaHref: '/contact?mode=google-review-removal',
   },
   {
-    name: 'Yelp Review Removal',
+    name: 'Yelp Account Removal',
     kind: 'addon',
-    price: '$250',
-    priceNote: 'per review',
-    desc: 'We identify and dispute policy-violating Yelp reviews to protect your reputation and improve your Yelp presence.',
+    price: 'Call for Quote',
+    priceNote: '',
+    desc: 'We handle the process of removing or suppressing a Yelp business account that is damaging your brand or operating without your consent.',
     features: [
-      'Review audit and eligibility check',
-      'Yelp dispute and flagging process',
-      'Policy violation documentation',
-      'Removal confirmation',
+      'Account audit and eligibility review',
+      'Formal Yelp removal request',
+      'Documentation and policy filing',
+      'Confirmation and follow-through',
     ],
-    cta: 'Remove Yelp Reviews',
-    ctaHref: '/contact?mode=yelp-review-removal',
+    cta: 'Remove Yelp Account',
+    ctaHref: '/contact?mode=yelp-account-removal',
   },
 ]
 
@@ -184,8 +168,13 @@ function PlanCard({ plan, onCta }: { plan: Plan; onCta: (p: Plan) => void }) {
       <p style={{ fontSize: 13, color: 'rgba(199,214,255,.5)', lineHeight: 1.7, marginBottom: 22 }}>{plan.desc}</p>
 
       <div style={{ marginBottom: 4 }}>
-        <span style={{ fontSize: 38, fontWeight: 900, color: '#fff' }}>{plan.price}</span>
-        <span style={{ fontSize: 14, color: 'rgba(199,214,255,.4)', marginLeft: 6 }}>{plan.priceNote}</span>
+        <span style={{
+          fontSize: plan.price === 'Call for Quote' ? 22 : 38,
+          fontWeight: 900, color: plan.price === 'Call for Quote' ? 'rgba(0,232,123,.8)' : '#fff',
+        }}>{plan.price}</span>
+        {plan.priceNote && (
+          <span style={{ fontSize: 14, color: 'rgba(199,214,255,.4)', marginLeft: 6 }}>{plan.priceNote}</span>
+        )}
       </div>
       <div style={{ height: 1, background: 'rgba(255,255,255,.05)', margin: '22px 0' }} />
 

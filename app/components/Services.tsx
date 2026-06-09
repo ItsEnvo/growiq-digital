@@ -1,6 +1,6 @@
 'use client'
 
-import { Layers, LayoutDashboard, Globe, Bot, Network, Shield } from 'lucide-react'
+import { Layers, LayoutDashboard, Globe, Bot, Shield } from 'lucide-react'
 
 const pillars = [
   {
@@ -42,37 +42,25 @@ const pillars = [
   {
     icon: Bot,
     tag: 'Custom AI Systems',
-    title: 'AI employees and systems, scoped to your business.',
-    desc: 'We build the AI workforce your business actually needs. Sales, content, support, operations, or anything else — trained on your work, integrated with your stack.',
+    title: 'AI employees and agent teams, scoped to your business.',
+    desc: 'We build the AI workforce your business actually needs — from a single sales assistant to a full multi-agent team running operations 24/7. Scoped to your workflow, trained on your business.',
     highlights: [
       'AI Sales Assistant — qualify leads, book calls',
-      'AI Content Engine — drafts and creative on demand',
       'AI Support Assistant — FAQs and intake, 24/7',
-      'Custom agents trained for your workflow',
-    ],
-  },
-  {
-    icon: Network,
-    tag: 'Enterprise',
-    title: 'Deploy a full AI agent team that runs your business.',
-    desc: 'Deploy a full team of AI agents trained on your business — handling sales outreach, customer support, content creation, and daily operations 24/7.',
-    highlights: [
-      'AI Sales Agent',
-      'AI Support Agent',
-      'AI Content Engine',
-      'AI Operations Manager',
-      'Custom workflow automation',
-      'Runs while you sleep',
+      'AI Content Engine — drafts and creative on demand',
+      'AI Operations Manager — automate daily workflows',
+      'Custom multi-agent teams for enterprise builds',
+      'Full integration with your existing tools',
     ],
   },
   {
     icon: Shield,
     tag: 'Protection',
     title: 'Clean up your online reputation and keep it clean.',
-    desc: 'Clean up your online presence. We remove damaging Google and Yelp reviews that are costing you customers and suppressing your ratings.',
+    desc: 'We remove damaging Google reviews and handle Yelp account removals that are costing you customers and suppressing your ratings.',
     highlights: [
       'Google review removal — $250/review',
-      'Yelp review removal — $250/review',
+      'Yelp account removal — call for quote',
       'Review dispute & flagging',
       'Ongoing monitoring',
     ],

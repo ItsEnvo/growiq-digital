@@ -8,6 +8,7 @@ import CommandCenter from './components/CommandCenter'
 import HowItWorks from './components/HowItWorks'
 import Results from './components/Results'
 import CaseStudy from './components/CaseStudy'
+import Work from './components/Work'
 import Pricing from './components/Pricing'
 import FAQ from './components/FAQ'
 import CTA from './components/CTA'
@@ -28,6 +29,7 @@ export default function Home() {
       <HowItWorks />
       <Results />
       <CaseStudy />
+      <Work />
       <Pricing />
       <FAQ />
       <CTA />

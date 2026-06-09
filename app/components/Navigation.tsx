@@ -12,7 +12,7 @@ type NavLink =
 const links: NavLink[] = [
   { label: 'Services', kind: 'anchor', id: 'services' },
   { label: 'AI Agents', kind: 'anchor', id: 'agents' },
-  { label: 'Case Study', kind: 'anchor', id: 'case-study' },
+  { label: 'Our Work', kind: 'anchor', id: 'work' },
   { label: 'Pricing', kind: 'anchor', id: 'pricing' },
   { label: 'FAQ', kind: 'anchor', id: 'faq' },
 ]

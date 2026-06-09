@@ -86,7 +86,6 @@ export default function Hero() {
               Digital infrastructure · Premium websites · AI systems
             </div>
 
-            {/* HERO COPY — interim, voice-aligned. Theo to replace with final hero/subhead. */}
             <h1 className="serif" style={{
               fontSize: 'clamp(30px, 3.8vw, 50px)', fontWeight: 800, lineHeight: 1.08,
               marginBottom: 20, letterSpacing: '-.02em',
