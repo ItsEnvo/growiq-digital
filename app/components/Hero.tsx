@@ -90,12 +90,12 @@ export default function Hero() {
               fontSize: 'clamp(30px, 3.8vw, 50px)', fontWeight: 800, lineHeight: 1.08,
               marginBottom: 20, letterSpacing: '-.02em',
             }}>
-              The digital foundation<br />for modern businesses.<br />
-              <span className="gradient-text">Built to look and run premium.</span>
+              Your business has outgrown<br />its current setup.<br />
+              <span className="gradient-text">We build the infrastructure to match.</span>
             </h1>
 
             <p style={{ fontSize: 15, color: 'rgba(199,214,255,.55)', maxWidth: 460, lineHeight: 1.85, marginBottom: 16 }}>
-              GrowIQ builds premium websites, custom dashboards, and AI systems for businesses. Foundation engagements start at $3,500.
+              GrowIQ builds premium websites, custom dashboards, and AI systems for established businesses that are still running on outdated digital infrastructure.
             </p>
 
             <p style={{ fontSize: 13, color: 'rgba(199,214,255,.35)', maxWidth: 460, lineHeight: 1.8, marginBottom: 32 }}>
