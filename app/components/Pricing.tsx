@@ -94,7 +94,7 @@ const retainers: Plan[] = [
   {
     name: 'Foundation Care',
     kind: 'retainer',
-    price: '$500',
+    price: '$200',
     priceNote: '/mo',
     desc: 'Hands-off operations for your live foundation. Hosting, updates, and support handled for you.',
     features: [
@@ -109,18 +109,20 @@ const retainers: Plan[] = [
   {
     name: 'Growth Partner',
     kind: 'retainer',
-    price: '$1,500',
-    priceNote: '/mo',
-    desc: 'Everything in Foundation Care, plus a partner working on the business with you each month.',
+    price: 'Call for Quote',
+    priceNote: 'scoped to your growth',
+    desc: 'A dedicated partner working on the business with you every month — content, optimization, and strategy, scoped to where you are headed.',
     features: [
       'Everything in Foundation Care',
+      'Content strategy and monthly content calendar',
       'AI optimization and tuning',
-      'Dashboard improvements',
-      'Strategy support',
+      'Dashboard improvements and new features',
+      'Growth strategy and monthly planning',
       'Priority support',
     ],
     cta: 'Become a Growth Partner',
     ctaHref: '/contact?mode=growth-partner',
+    badge: 'Most Popular',
   },
 ]
 

@@ -2,7 +2,7 @@
 
 export default function LogoBar() {
   const stats = [
-    { val: '30 days', label: 'Kickoff to live', color: '#00e87b' },
+    { val: '7 days', label: 'Kickoff to live', color: '#00e87b' },
     { val: '10', label: 'Named AI specialists', color: '#00b4d8' },
     { val: '24/7', label: 'Always online', color: '#a855f7' },
     { val: '1', label: 'Front door, all of it', color: '#f59e0b' },

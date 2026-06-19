@@ -41,7 +41,7 @@ export default function CTA() {
         </div>
 
         <p style={{ marginTop: 24, fontSize: 12, color: 'rgba(199,214,255,.3)' }}>
-          Foundation engagements start at $3,500. Retainers from $500/mo.
+          Foundation engagements start at $3,500. Retainers from $200/mo.
         </p>
       </div>
     </section>

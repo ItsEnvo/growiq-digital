@@ -7,7 +7,7 @@ import Particles from '../components/Particles'
 export const metadata = {
   title: 'Pricing — GrowIQ',
   description:
-    'Foundation starting at $3,500. Foundation Care from $500/mo. Growth Partner from $1,500/mo. Custom AI Systems scoped per business.',
+    'Foundation starting at $3,500. Foundation Care from $200/mo. Growth Partner scoped per business and quoted on a call. Custom AI Systems scoped per business.',
 }
 
 export default function PricingPage() {
