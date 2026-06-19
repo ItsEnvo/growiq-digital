@@ -14,22 +14,22 @@ export default function BookPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL || 'https://calendly.com/growiq/strategy';
+  // Only iframe a real booking URL; otherwise fall through to the working form.
+  const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL || '';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/leads', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...formData,
-          subject: 'Booking Request',
-          mode: 'booking',
+          kind: 'booking',
         }),
       });
 
