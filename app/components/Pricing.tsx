@@ -14,6 +14,7 @@ type Plan = {
   ctaHref: string
   flagship?: boolean
   badge?: string
+  kindLabel?: string
 }
 
 const builds: Plan[] = [
@@ -52,6 +53,26 @@ const builds: Plan[] = [
     ctaHref: '/contact?mode=premium-build',
   },
 ]
+
+const aiWorkforce: Plan = {
+  name: 'Dedicated AI Workforce',
+  kind: 'engagement',
+  price: 'From $2,500',
+  priceNote: 'setup, then custom monthly',
+  desc: 'Your own team of AI employees — reception, sales, follow-up, and operations — deployed on secure, private infrastructure, trained on your business, and running every hour of every day.',
+  features: [
+    'A private, dedicated, secure environment built for your business',
+    'AI agents chosen for your needs: reception, sales, follow-up, operations',
+    'Trained on your brand voice, services, and workflows',
+    'Works across phone, SMS, email, chat, and social',
+    'Seamless handoff to your team when a human is needed',
+    'Ongoing tuning, monitoring, and priority support',
+  ],
+  cta: 'Book a Scoping Call',
+  ctaHref: '/contact?mode=ai-workforce',
+  badge: 'Premium',
+  kindLabel: 'Private AI Infrastructure',
+}
 
 const addons: Plan[] = [
   {
@@ -181,7 +202,7 @@ function PlanCard({ plan, onCta }: { plan: Plan; onCta: (p: Plan) => void }) {
         fontSize: 10, fontWeight: 800, letterSpacing: '.18em',
         color: 'rgba(199,214,255,.35)', textTransform: 'uppercase' as const, marginBottom: 10,
       }}>
-        {plan.kind === 'engagement' ? 'One-Time Build' : plan.kind === 'retainer' ? 'Monthly Plan' : 'Add-On'}
+        {plan.kindLabel ?? (plan.kind === 'engagement' ? 'One-Time Build' : plan.kind === 'retainer' ? 'Monthly Plan' : 'Add-On')}
       </div>
       <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 8 }}>{plan.name}</h3>
       <p style={{ fontSize: 13, color: 'rgba(199,214,255,.5)', lineHeight: 1.7, marginBottom: 22 }}>{plan.desc}</p>
@@ -281,7 +302,19 @@ export default function Pricing() {
         <div style={{
           fontSize: 10, fontWeight: 800, letterSpacing: '.25em',
           color: 'rgba(199,214,255,.35)', textTransform: 'uppercase' as const,
-          textAlign: 'center' as const, marginBottom: 18, marginTop: 48,
+          textAlign: 'center' as const, marginBottom: 18, marginTop: 64,
+        }}>
+          Premium Engagement
+        </div>
+
+        <div style={{ maxWidth: 560, margin: '0 auto' }}>
+          <PlanCard plan={aiWorkforce} onCta={handleCta} />
+        </div>
+
+        <div style={{
+          fontSize: 10, fontWeight: 800, letterSpacing: '.25em',
+          color: 'rgba(199,214,255,.35)', textTransform: 'uppercase' as const,
+          textAlign: 'center' as const, marginBottom: 18, marginTop: 64,
         }}>
           Reputation Protection
         </div>
