@@ -16,44 +16,40 @@ type Plan = {
   badge?: string
 }
 
-const engagements: Plan[] = [
+const builds: Plan[] = [
   {
-    name: 'Foundation',
+    name: 'Standard Website',
     kind: 'engagement',
-    price: 'Call for Quote',
-    priceNote: '',
-    desc: 'The complete digital foundation. Premium website, admin dashboard, lead capture, and the infrastructure to run on top of.',
+    price: '$1,500',
+    priceNote: 'one-time',
+    desc: 'A clean, fast, conversion-focused website wired into your lead system. Your front door, built to convert.',
     features: [
-      'Premium luxury website',
+      'Premium conversion-focused website',
       'Lead capture and inquiry routing',
-      'Admin dashboard',
-      'Google Workspace setup',
-      'Domain, DNS, and hosting',
-      'Business infrastructure setup',
+      'Domain, DNS, and hosting setup',
+      'Connected to your GrowIQ platform',
+      'Live in 7 days from kickoff',
       '30 days of post-launch support',
     ],
-    cta: 'Start a Foundation',
+    cta: 'Start Your Build',
     ctaHref: '/contact?mode=foundation',
-    flagship: true,
   },
   {
-    name: 'Custom AI Systems',
+    name: 'Premium Build',
     kind: 'engagement',
-    price: 'Call for Quote',
-    priceNote: 'scoped to your business',
-    desc: 'Custom AI employees and agent teams built to run your business operations — sales, support, content, and more.',
+    price: '$3,000 – $5,000',
+    priceNote: 'one-time',
+    desc: 'Custom design, additional pages, and advanced integrations for businesses that need more.',
     features: [
-      'AI Sales Assistant',
-      'AI Support Assistant',
-      'AI Content Engine',
-      'AI Operations Manager',
-      'Custom multi-agent system design',
-      'Full integration with your existing tools',
-      '30-day onboarding and training',
+      'Fully custom design',
+      'Additional pages and funnels',
+      'Advanced integrations',
+      'Everything in Standard Website',
+      'Priority build timeline',
+      '30 days of post-launch support',
     ],
-    cta: 'Scope an AI System',
-    ctaHref: '/contact?mode=ai-systems',
-    badge: 'Enterprise',
+    cta: 'Scope a Premium Build',
+    ctaHref: '/contact?mode=premium-build',
   },
 ]
 
@@ -90,44 +86,65 @@ const addons: Plan[] = [
   },
 ]
 
-const retainers: Plan[] = [
+const plans: Plan[] = [
   {
-    name: 'Foundation Care',
+    name: 'Foundation',
     kind: 'retainer',
-    price: '$200',
+    price: '$197',
     priceNote: '/mo',
-    desc: 'Hands-off operations for your live foundation. Hosting, updates, and support handled for you.',
+    desc: 'The essentials to stop losing leads.',
     features: [
-      'Hosting and infrastructure',
-      'Maintenance and updates',
-      'Email and standard support',
-      'Monthly status check-in',
+      'Website hosting and maintenance',
+      'Branded platform: CRM, pipeline, and calendar',
+      'Lead capture from web, text, and email in one inbox',
+      'Contact management',
+      'Email support',
     ],
-    cta: 'Add Foundation Care',
+    cta: 'Start with Foundation',
     ctaHref: '/contact?mode=foundation-care',
   },
   {
-    name: 'Growth Partner',
+    name: 'Growth',
     kind: 'retainer',
-    price: 'Call for Quote',
-    priceNote: 'scoped to your growth',
-    desc: 'A dedicated partner working on the business with you every month — content, optimization, and strategy, scoped to where you are headed.',
+    price: '$497',
+    priceNote: '/mo',
+    desc: 'The automation that books customers while you work.',
     features: [
-      'Everything in Foundation Care',
-      'Content strategy and monthly content calendar',
-      'AI optimization and tuning',
-      'Dashboard improvements and new features',
-      'Growth strategy and monthly planning',
+      'Everything in Foundation',
+      'Missed-call text-back',
+      'AI lead follow-up in seconds',
+      'Automated review and reputation requests',
+      'Email and SMS campaigns',
+      'Online booking automation',
+      'Monthly performance report',
       'Priority support',
     ],
-    cta: 'Become a Growth Partner',
+    cta: 'Choose Growth',
     ctaHref: '/contact?mode=growth-partner',
-    badge: 'Most Popular',
+    flagship: true,
+  },
+  {
+    name: 'Scale',
+    kind: 'retainer',
+    price: '$997',
+    priceNote: '/mo',
+    desc: 'A growth partner working alongside you.',
+    features: [
+      'Everything in Growth',
+      'AI voice agent that qualifies leads',
+      'Multi-location and advanced automations',
+      'Done-with-you content and growth planning',
+      'Dedicated strategy support',
+    ],
+    cta: 'Scale Up',
+    ctaHref: '/contact?mode=scale',
   },
 ]
 
 function PlanCard({ plan, onCta }: { plan: Plan; onCta: (p: Plan) => void }) {
   const accent = plan.flagship
+  const isQuote = plan.price === 'Call for Quote'
+  const longPrice = plan.price.length > 8
   return (
     <div style={{
       position: 'relative', borderRadius: 24, padding: 32,
@@ -145,7 +162,7 @@ function PlanCard({ plan, onCta }: { plan: Plan; onCta: (p: Plan) => void }) {
           background: 'linear-gradient(135deg, #00e87b, #00b4d8)', color: '#fff',
           boxShadow: '0 0 20px rgba(0,232,123,.3)',
         }}>
-          Start Here
+          Most Popular
         </div>
       )}
       {plan.badge && (
@@ -164,15 +181,15 @@ function PlanCard({ plan, onCta }: { plan: Plan; onCta: (p: Plan) => void }) {
         fontSize: 10, fontWeight: 800, letterSpacing: '.18em',
         color: 'rgba(199,214,255,.35)', textTransform: 'uppercase' as const, marginBottom: 10,
       }}>
-        {plan.kind === 'engagement' ? 'Engagement' : plan.kind === 'retainer' ? 'Retainer' : 'Add-On'}
+        {plan.kind === 'engagement' ? 'One-Time Build' : plan.kind === 'retainer' ? 'Monthly Plan' : 'Add-On'}
       </div>
       <h3 style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 8 }}>{plan.name}</h3>
       <p style={{ fontSize: 13, color: 'rgba(199,214,255,.5)', lineHeight: 1.7, marginBottom: 22 }}>{plan.desc}</p>
 
       <div style={{ marginBottom: 4 }}>
         <span style={{
-          fontSize: plan.price === 'Call for Quote' ? 22 : 38,
-          fontWeight: 900, color: plan.price === 'Call for Quote' ? 'rgba(0,232,123,.8)' : '#fff',
+          fontSize: longPrice ? 22 : 38,
+          fontWeight: 900, color: isQuote ? 'rgba(0,232,123,.8)' : '#fff',
         }}>{plan.price}</span>
         {plan.priceNote && (
           <span style={{ fontSize: 14, color: 'rgba(199,214,255,.4)', marginLeft: 6 }}>{plan.priceNote}</span>
@@ -224,18 +241,11 @@ export default function Pricing() {
             Pricing
           </div>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, marginBottom: 12 }}>
-            A foundation, then a <span className="gradient-text">partner.</span>
+            Build it once. Then <span className="gradient-text">grow on it.</span>
           </h2>
           <p style={{ fontSize: 15, color: 'rgba(199,214,255,.5)', maxWidth: 560, margin: '0 auto', lineHeight: 1.8 }}>
-            Start with the Foundation. Layer in Custom AI Systems and a retainer when you are ready.
+            A one-time build to launch your foundation, then a simple monthly plan for the platform, automation, and support that turn visitors into booked customers.
           </p>
-        </div>
-
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: 20, alignItems: 'stretch', marginBottom: 32,
-        }}>
-          {engagements.map(p => <PlanCard key={p.name} plan={p} onCta={handleCta} />)}
         </div>
 
         <div style={{
@@ -243,14 +253,29 @@ export default function Pricing() {
           color: 'rgba(199,214,255,.35)', textTransform: 'uppercase' as const,
           textAlign: 'center' as const, marginBottom: 18,
         }}>
-          Ongoing Partnership
+          One-Time Build
         </div>
 
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 20, alignItems: 'stretch', marginBottom: 48,
+        }}>
+          {builds.map(p => <PlanCard key={p.name} plan={p} onCta={handleCta} />)}
+        </div>
+
+        <div style={{
+          fontSize: 10, fontWeight: 800, letterSpacing: '.25em',
+          color: 'rgba(199,214,255,.35)', textTransform: 'uppercase' as const,
+          textAlign: 'center' as const, marginBottom: 18,
+        }}>
+          Monthly Plans
+        </div>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: 20, alignItems: 'stretch',
         }}>
-          {retainers.map(p => <PlanCard key={p.name} plan={p} onCta={handleCta} />)}
+          {plans.map(p => <PlanCard key={p.name} plan={p} onCta={handleCta} />)}
         </div>
 
         <div style={{
@@ -269,7 +294,7 @@ export default function Pricing() {
         </div>
 
         <p style={{ textAlign: 'center' as const, marginTop: 36, fontSize: 13, color: 'rgba(199,214,255,.4)', maxWidth: 620, marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.7 }}>
-          Foundation is a one-time engagement. Retainers are month to month, no long-term contract. Custom AI Systems are scoped per build.
+          The build is a one-time engagement. Monthly plans are month to month with no long-term contract. Launch offer: build fee reduced by half when you start on an annual plan.
         </p>
       </div>
     </section>

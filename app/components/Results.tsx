@@ -44,7 +44,7 @@ export default function Results() {
             { label: 'Follow-Up Rate', old: '~30%', new: '100%' },
             { label: 'Missed Calls', old: '30-50%', new: '0%' },
             { label: 'Training Time', old: '2-4 weeks', new: 'Same day' },
-            { label: 'Monthly Cost', old: '$12K+ (salaries)', new: 'From $200/mo' },
+            { label: 'Monthly Cost', old: '$12K+ (salaries)', new: 'From $197/mo' },
             { label: 'Scalability', old: 'Hire more people', new: 'Instant' },
             { label: 'Consistency', old: 'Varies by person', new: 'Perfect every time' },
           ].map((row, i) => (

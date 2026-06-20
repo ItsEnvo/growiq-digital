@@ -5,12 +5,12 @@ import { ChevronDown } from 'lucide-react'
 
 const faqs = [
   { q: 'Who is GrowIQ for?', a: 'Small to medium-sized businesses that already have revenue and need a real digital foundation — better websites, dashboards, systems, and AI. We work horizontally across industries; we are not a single-vertical agency.' },
-  { q: 'What does the Foundation include?', a: 'A premium custom website, an admin dashboard, lead capture and inquiry routing, Google Workspace setup, domain, DNS, hosting, business infrastructure, and 30 days of post-launch support. Starting at $3,500.' },
-  { q: 'How long does it take?', a: 'Most Foundations are live within 5 to 7 business days. AI Systems are scoped per build and shipped in parallel or as a follow-on engagement.' },
-  { q: 'What are the retainers for?', a: 'Foundation Care ($200/mo) covers hosting, maintenance, updates, and standard support. Growth Partner is a dedicated monthly partnership — content strategy, AI optimization, dashboard improvements, growth planning, and priority support — scoped to your business and quoted on a call.' },
+  { q: 'What does the website build include?', a: 'A premium conversion-focused website, lead capture and inquiry routing, domain, DNS, hosting setup, a connection into your GrowIQ platform, and 30 days of post-launch support. The Standard Website is $1,500 one-time; Premium Builds with custom design and advanced integrations run $3,000 to $5,000.' },
+  { q: 'How long does it take?', a: 'Most websites are live within 5 to 7 business days from kickoff. Advanced automations and AI systems are configured in parallel or as a follow-on.' },
+  { q: 'What do the monthly plans include?', a: 'Foundation ($197/mo) covers hosting, maintenance, your branded platform with CRM, pipeline and calendar, lead capture in one inbox, and email support. Growth ($497/mo) adds missed-call text-back, AI lead follow-up, automated review requests, email and SMS campaigns, online booking, and a monthly performance report. Scale ($997/mo) adds an AI voice agent, advanced automations, and done-with-you growth planning.' },
   { q: 'What counts as a custom AI system?', a: 'A custom AI system is an AI employee or workflow built specifically for your business — sales assistants, content engines, support assistants, executive assistants, operations agents, knowledge bases, and more. Scoped and priced per build.' },
   { q: 'Do I have to be technical?', a: 'No. The foundation is built, configured, and handed over. The dashboard is designed for the owner, not the developer. We handle the underlying work.' },
-  { q: 'Can I cancel anytime?', a: 'Retainers are month to month. No long-term contracts. The Foundation is a one-time engagement and the work, accounts, and assets stay with you.' },
+  { q: 'Can I cancel anytime?', a: 'Monthly plans are month to month. No long-term contracts. The website build is a one-time engagement and the work, accounts, and assets stay with you.' },
 ]
 
 export default function FAQ() {
