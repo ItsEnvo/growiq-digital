@@ -46,3 +46,33 @@ body::after {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Preloader animations */
+@keyframes gq-spin { to { transform: rotate(360deg); } }
+@keyframes gq-spin-rev { to { transform: rotate(-360deg); } }
+@keyframes gq-pulse-glow {
+  0%, 100% { opacity: .55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@keyframes gq-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes gq-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes gq-grid-drift {
+  from { background-position: 0 0; }
+  to { background-position: 44px 44px; }
+}
+@keyframes gq-scan-sweep {
+  0% { transform: translateY(-120%); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(120%); opacity: 0; }
+}
+.gq-preloader-exit { opacity: 0 !important; transform: scale(1.04); transition: opacity .8s ease, transform .8s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .gq-anim { animation: none !important; }
+}
