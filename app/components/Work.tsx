@@ -6,6 +6,18 @@ import { useState } from 'react'
 
 const projects = [
   {
+    slug: 'vsnyvanlines',
+    name: 'VSNY Van Lines',
+    tag: 'Moving & Logistics',
+    url: 'https://vsnyvanlines.com',
+  },
+  {
+    slug: 'pluggedworldwide',
+    name: 'Plugged Worldwide',
+    tag: 'Retail & E-Commerce',
+    url: 'https://pluggedworldwide.com',
+  },
+  {
     slug: 'allondeckcrew',
     name: 'All On Deck Crew',
     tag: 'Staffing & Events',

@@ -41,12 +41,12 @@ export default function Results() {
           {[
             { label: 'Response Time', old: '4-24 hours', new: '< 5 seconds' },
             { label: 'Availability', old: '40 hrs/week', new: '24/7/365' },
-            { label: 'Follow-Up Rate', old: '~30%', new: '100%' },
-            { label: 'Missed Calls', old: '30-50%', new: '0%' },
+            { label: 'Follow-Up Rate', old: '~30%', new: 'Every lead' },
+            { label: 'Missed Calls', old: '30-50%', new: 'Texted back in seconds' },
             { label: 'Training Time', old: '2-4 weeks', new: 'Same day' },
             { label: 'Monthly Cost', old: '$12K+ (salaries)', new: 'From $197/mo' },
             { label: 'Scalability', old: 'Hire more people', new: 'Instant' },
-            { label: 'Consistency', old: 'Varies by person', new: 'Perfect every time' },
+            { label: 'Consistency', old: 'Varies by person', new: 'Same every time' },
           ].map((row, i) => (
             <div key={i} style={{
               display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr', gap: 0,
